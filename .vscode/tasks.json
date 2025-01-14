@@ -1,0 +1,11 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start SSH Tunnel",
+            "type": "shell",
+            "command": "ssh -L 5432:localhost:5432 s335141@helios.cs.ifmo.ru -p 2222",
+            "problemMatcher": []
+        }
+    ]
+}
