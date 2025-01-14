@@ -76,14 +76,16 @@
 			</div>
 
 			<dialog data-dialog-name="auth-dialog">
-			<form action="api/auth.php" method="POST">
+			<form id="loginForm" action="api/auth.php" method="POST">
 				<h2>Войти</h2>
 				<input name="login" type="text">
 				<input name="password" type="text">
 				<button type="submit">Войти</button>
 			</form>
 			</dialog>
+			<div id="message"></div>
 		</main>
 	</body>
 <script type="module" src="./scripts/index.js"></script>
+<script type="module" src="./scripts/auth.js"></script>
 </html>
