@@ -2,7 +2,7 @@
 
 $host = 'pg';
 $db = 'studs';
-$db_user = 's335200';
+$db_user = 's335141';
 $db_password = 'rKux7MCx0SKISIWe'; 
 
 $dsn = "pgsql:host=$host;port=5432;dbname=$db;";
