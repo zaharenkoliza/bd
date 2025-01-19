@@ -1,10 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['token'])) {
-	header("Location: ./start.php");
-}
-?>
 
 <!DOCTYPE html>
 <html>
@@ -22,25 +15,25 @@ if (!isset($_SESSION['token'])) {
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Handjet:wght@100..900&family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
 	</head>
-	
 	<main>
+		<h1>Саботёр</h1>
+		<p>онлайн настольная игра</p>
 		<div>
-		<span>Саботёр</span>
+			<button data-show-dialog="auth-dialog">войти</button>
+			<button>регистрация</button>
 			<button>правила</button>
-			<button onclick="window.location.href = './log_out.php'">выйти из аккаунта</button>
 		</div>
 
-		<div>
-			<h2> 
-				<?php 
-					echo $_SESSION['user']['login'];
-				?>
-			</h2>
-			<button>создать игру</button>
-			<button id='roomIn'>войти в игру</button>
-		</div>
+		<dialog data-dialog-name="auth-dialog">
+		<form id="loginForm" action="api/auth.php" method="POST">
+			<h2>Войти</h2>
+			<input name="login" type="text">
+			<input name="password" type="text">
+			<button type="submit">Войти</button>
+		</form>
+		</dialog>
 		<div id="message"></div>
 	</main>
 	<script type="module" src="../scripts/index.js"></script>
-	<script type="module" src="../scripts/availableRooms.js"></script>
+	<script type="module" src="../scripts/auth.js"></script>
 </html>

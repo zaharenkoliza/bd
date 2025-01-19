@@ -1,0 +1,90 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['token'])) {
+	header("Location: ./start.php");
+}
+
+$idRoom = $_GET['room'];
+
+include '../api/db_connect.php';
+
+$stmt = $pdo->prepare('SELECT * FROM s335141.users_in_rooms where login_user =:login and id_room =:room');
+$stmt->execute(['login' => $_SESSION['user']['login'], 'room' => $idRoom]);
+$result = $stmt->fetch();
+
+if (!$result) {
+	header("Location: ./rooms.php");
+}
+
+$stmt = $pdo->prepare('SELECT s335141.get_game_state(:t, :room)');
+$stmt->execute(['t' => $_SESSION['token'], 'room' => $idRoom]);
+$result = $stmt->fetchColumn();
+
+$response = json_decode($result, true);
+
+if ($response && !isset($response['error']) && isset($response['players_in_room'])) {
+	$_SESSION['players' . $idRoom] = $response['players_in_room'];
+	$_SESSION['game'] = $response;
+	print_r($_SESSION['game']);
+}
+
+$stmt = $pdo->prepare('SELECT id FROM s335141.players where login_user =:login and id_room =:room');
+$stmt->execute(['login' => $_SESSION['user']['login'], 'room' => $idRoom]);
+$result = $stmt->fetch();
+
+if ($response && !isset($response['error'])) {
+	$_SESSION['id_player' . $idRoom] = $response;
+	print_r($_SESSION['token']);
+	print_r($_SESSION['id_player' . $idRoom]);
+}
+?>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Saboteur</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../css/index.css">
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Handjet:wght@100..900&family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
+	</head>
+	
+	<main class='game'>
+		<section class='aside'>
+			<div>
+				<span>Саботёр</span>
+				<button>правила</button>
+				<button id="quit-button" data-id-room="<?php echo $idRoom; ?>" onclick="">выйти из игры</button>
+			</div>
+
+			<ul class="players-list"></ul>
+			<div class="drop-card">Выбросить карту</div>
+			<ul class="cards-hand"></ul>
+		</section>
+
+		<section class='field'>
+			<?php
+				for ($x = 1; $x < 6; $x++) {
+					for ($y = 1; $y < 10; $y++) {
+						echo '<div class="card empty" data-x=' . $x . ' data-y=' . $y . '>';
+						echo '<img src="" alt="" />';
+						echo '</div>';
+					}
+		}?>
+		</section>
+		<div id="message"></div>
+	</main>
+
+	<script type="module" src="../scripts/index.js"></script>
+	<script type="module" src="../scripts/quit.js"></script>
+	<script type="module" src="../scripts/game.js"></script>
+	<script type="module" src="../scripts/cards.js"></script>
+</html>
