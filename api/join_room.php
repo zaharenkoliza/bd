@@ -12,13 +12,13 @@ $room = $_POST['room'] ?? null;
 $name = $_POST['name'] ?? null;
 
 
-if (empty($room) || empty($name)) {
-	echo json_encode(['status' => 'error', 'message' => 'Write all the information']);
+if (empty($room)) {
+	echo json_encode(['status' => 'error', 'message' => 'No room']);
 	exit;
 }
 
 $stmt = $pdo->prepare('SELECT s335141.join_room(:t, :room, :n)');
-$stmt->execute(['t' => $_SESSION['token'], 'room' => $room, 'n' => $name]);
+$stmt->execute(['t' => $_SESSION['token'], 'room' => $room, 'n' => $name ? $name : 'Гость']);
 $result = $stmt->fetchColumn();
 
 $response = json_decode($result, true);
