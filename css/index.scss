@@ -12,7 +12,7 @@ html {
 		main {
 			background-color: white;
 			opacity: 0.95;
-			width: 80vw;
+			width: 90vw;
 			height: 80vh;
 			margin: auto;
 			display: flex;
@@ -20,6 +20,7 @@ html {
 			align-items: center;
 			justify-content: center;
 			border-radius: 40px;
+			box-sizing: border-box;
 		}
 	}
 }
@@ -27,3 +28,4 @@ html {
 @import './_reset.scss';
 @import './_fonts.scss';
 @import './_button.scss';
+@import './_game.scss';
