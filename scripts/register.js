@@ -1,0 +1,40 @@
+export function initRegisterForm() {
+	const form = document.getElementById('registerForm');
+
+	if (!form) return;
+
+	form.addEventListener('submit', function (e) {
+		e.preventDefault();
+		const login = form.querySelector('input[name=login]').value;
+    	const password = form.querySelector('input[name=password]').value;
+		const messageDiv = document.getElementById('message');
+
+		fetch('../api/register.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: `login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`
+		})
+		.then(response => {
+			if (!response.ok) {
+				return Promise.reject('An error occurred during the request');
+			}
+			return response.json();
+		})
+		.then(data => {
+			messageDiv.textContent = data.message;
+			console.log(data.message);
+			if (data.message === 'success') {
+				window.location.href = './profile.php';
+			}
+			else {
+				alert(data.message);
+			}
+		})
+		.catch(error => {
+			messageDiv.textContent = error;
+			console.error(error);
+		});
+	});
+}
