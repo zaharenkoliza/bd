@@ -31,7 +31,7 @@ if ($response && isset($response['status']) && $response['status'] === 'success'
 	echo json_encode([
 		'message' => 'success',
 		'info' => $response
-	]);;
+	]);
 } else {
 	echo json_encode([
 		'status' => 'error',

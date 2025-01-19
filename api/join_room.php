@@ -24,12 +24,13 @@ $result = $stmt->fetchColumn();
 $response = json_decode($result, true);
 
 if ($response && isset($response['status']) && $response['status'] === 'User successfully connected to the room') {
-	$_SESSION['players'] = $response['players_in_room'];
+	$_SESSION['players' . $room] = $response['players_in_room'];
+	$_SESSION['id_player' . $room] = $response['id_player'];
 
-	echo "<pre>";
-	print_r($response);
-	print_r($_SESSION);
-	echo "</pre>";
+	echo json_encode([
+		'status' => 'success',
+		'info' => $response
+	]);
 } else {
 	echo json_encode([
 		'status' => 'error',

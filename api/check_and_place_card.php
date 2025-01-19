@@ -14,7 +14,7 @@ $y = $_POST['y'] ?? null;
 $rot = $_POST['rot'] ?? null;
 
 
-if (empty($card) || empty($x) || empty($y) || empty($rot)) {
+if ($card === '' || $x === '' || $y === '' || $rot === '') {
 	echo json_encode(['status' => 'error', 'message' => 'Not enough info']);
 	exit;
 }

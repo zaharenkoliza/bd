@@ -22,12 +22,12 @@ $result = $stmt->fetchColumn();
 $response = json_decode($result, true);
 
 if ($response && !isset($response['error'])) {
-	$_SESSION['game_status'] = $response['game_status'];
+	$_SESSION['game'] = $response;
 
-	echo "<pre>";
-	print_r($response);
-	print_r($_SESSION);
-	echo "</pre>";
+	echo json_encode([
+		'status' => 'success',
+		'info' => $response
+	]);
 } else {
 	echo json_encode([
 		'status' => 'error',

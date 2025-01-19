@@ -10,29 +10,23 @@ if (!isset($_SESSION['token'])) {
 
 $room = $_POST['room'] ?? null;
 
-
 if (empty($room)) {
 	echo json_encode(['status' => 'error', 'message' => 'Write all the information']);
 	exit;
 }
 
-$stmt = $pdo->prepare('SELECT s335141.quit(:t, :room)');
+$stmt = $pdo->prepare('SELECT s335141.isUserInRoom(:t, :room)');
 $stmt->execute(['t' => $_SESSION['token'], 'room' => $room]);
 $result = $stmt->fetchColumn();
 
 $response = json_decode($result, true);
 
 if ($response && isset($response['status']) && $response['status'] === 'success') {
-	$_SESSION['rooms'] = $response['available_games'];
-
-	echo json_encode([
-		'status' => 'success',
-		'info' => $response
-	]);
+	echo $response;
 } else {
 	echo json_encode([
 		'status' => 'error',
-		'message' => $response['error'] ?? 'Error'
+		'message' => $response['message'] ?? 'Error'
 	]);
 }
 ?>
