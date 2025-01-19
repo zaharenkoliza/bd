@@ -26,7 +26,6 @@ $response = json_decode($result, true);
 if ($response && !isset($response['error']) && isset($response['players_in_room'])) {
 	$_SESSION['players' . $idRoom] = $response['players_in_room'];
 	$_SESSION['game'] = $response;
-	print_r($_SESSION['game']);
 }
 
 $stmt = $pdo->prepare('SELECT id FROM s335141.players where login_user =:login and id_room =:room');
@@ -36,7 +35,6 @@ $result = $stmt->fetch();
 if ($response && !isset($response['error'])) {
 	$_SESSION['id_player' . $idRoom] = $response;
 	print_r($_SESSION['token']);
-	print_r($_SESSION['id_player' . $idRoom]);
 }
 ?>
 
@@ -50,6 +48,7 @@ if ($response && !isset($response['error'])) {
 				<span>Саботёр</span>
 				<button>правила</button>
 				<button id="quit-button" data-id-room="<?php echo $idRoom; ?>" onclick="">выйти из игры</button>
+				<div id='timer'></div>
 			</div>
 
 			<ul class="players-list"></ul>
@@ -58,14 +57,18 @@ if ($response && !isset($response['error'])) {
 		</section>
 
 		<section class='field'>
+			<div>
 			<?php
-				for ($x = 1; $x < 6; $x++) {
-					for ($y = 1; $y < 10; $y++) {
+				for ($y = 5; $y > 0; $y--) {
+					echo '<div class="row">';
+					for ($x = 1; $x < 10; $x++) {
 						echo '<div class="card empty" data-x=' . $x . ' data-y=' . $y . '>';
 						echo '<img src="" alt="" />';
 						echo '</div>';
 					}
+					echo '</div>';
 		}?>
+		</div>
 		</section>
 		<div id="message"></div>
 	</main>

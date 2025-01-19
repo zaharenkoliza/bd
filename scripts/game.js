@@ -18,7 +18,6 @@ const getTunnelTypeId = async (card) => {
 		const data = await response.json();
 		return data;
 	} catch (error) {
-		messageDiv.textContent = 'An error occurred during the request';
 		console.error('Error fetching data:', error);
 		return false;
 	}
@@ -42,7 +41,6 @@ const getActionTypeId = async (card) => {
 		const data = await response.json();
 		return data;
 	} catch (error) {
-		messageDiv.textContent = 'An error occurred during the request';
 		console.error('Error fetching data:', error);
 		return false;
 	}
@@ -111,6 +109,7 @@ const players = async (data) => {
 	if (!data.players) return;
 
 	const ul = document.querySelector('ul.players-list');
+	const curPlayer = data.current_move?.id_player;
 
 	const currentPlayers = new Map();
 	ul.querySelectorAll('li').forEach(li => {
@@ -120,15 +119,24 @@ const players = async (data) => {
 
 	for (const player of data.players) {
 		const { player_id, player_name } = player;
+		let li = null;
 
 		if (currentPlayers.has(player_id.toString())) {
+			li = document.querySelector(`li[data-player-id="${player_id}"]`);
 			currentPlayers.delete(player_id.toString());
 		} else {
-			const li = document.createElement('li');
+			li = document.createElement('li');
 			li.setAttribute('data-player-id', player_id);
 			li.textContent = player_name;
 			ul.appendChild(li);
 			addListenerForPlayer(li);
+		}
+
+		if (player_id == curPlayer) {
+			li.classList.add('cur-move');
+		}
+		else {
+			li.classList.remove('cur-move');
 		}
 	};
 
@@ -137,10 +145,21 @@ const players = async (data) => {
 	});
 }
 
-const gameState = () => {
-	const name = 'lliza';
-	const messageDiv = document.getElementById('message');
+const updateTimer = (data) => {
+	if (!data) return;
 
+	timer.innerHTML = parseTimeToSeconds(data.end_time);
+}
+
+const startGame = () => {
+	if (!timerTimeout) {
+		const timerTimeout = setTimeout(() => {
+			timer.innerHTML = Number(timer.innerHTML) - 1;
+		}, 1000);
+	}
+}
+
+export const gameState = () => {
 	fetch('../api/get_game_state.php', {
 		method: 'POST',
 		headers: {
@@ -150,18 +169,38 @@ const gameState = () => {
 	})
 	.then(response => response.json())
 	.then(data => {
-		// messageDiv.textContent = JSON.stringify(data.info);
 		cardOnField(data.info);
 		cardInHand(data.info);
 		players(data.info);
+		updateTimer(data.info['current_move']);
+		console.log(data);
+		if (data.info.game_status != game_status && data.info.game_status =='process') {
+			startGame();
+		}
+		game_status = data.info.game_status;
 	})
 	.catch(error => {
-		messageDiv.textContent = 'An error occurred during the request';
+		console.error('Error fetching data:', error);
 	});
 }
 
+function parseTimeToSeconds(timeString) {
+	const [hours, minutes, seconds] = timeString.split(':');
+
+	const totalSeconds = 
+		parseInt(hours, 10) * 3600 +
+		parseInt(minutes, 10) * 60 +
+		parseFloat(seconds);
+
+	return Math.round(totalSeconds);
+}
+
+
 const urlParams = new URLSearchParams(window.location.search);
 const idRoom = urlParams.get('room');
+const timer = document.getElementById('timer');
+let timerTimeout = null;
+let game_status = null;
 
 gameState();
 setInterval(gameState, 5000);

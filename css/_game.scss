@@ -27,36 +27,52 @@ main.game {
 
 			> li {
 				background-color: aquamarine;
+
+				&.cur-move {
+					background-color: green;
+				}
 			}
 		}
 	}
 
 	section.field {
-		display: grid;
-		gap: 5px;
 		width: 60vw;
-		display: flex;
-		gap: 5px;
-		display: grid;
-		grid-template-columns: repeat(9, 1fr);
-		height: auto;
-		padding: 20px;
+		height: 90vh;
 
-			> div {
-				aspect-ratio: 384 / 538;
-				
-				width: auto;
-				background-color: aqua;
-				
-				> img {
-					max-width: 100%; 
-					max-height: 100%; 
-					object-fit: contain;
-				}
+		> div {
+			display: grid;
+			gap: 5px;
+			width: auto;
+			display: flex;
+			gap: 0.5vh;
+			display: grid;
+			grid-template-rows: repeat(5, 16.8vh);
+			height: auto;
+			padding: 2vh;
 
-				&.drag-on {
-					background-color: red;
+			> div.row {
+				display: grid;
+				grid-template-columns: repeat(9, 1fr);
+				width: min-content;
+
+				> div {
+					aspect-ratio: 384 / 538;
+					border-radius: 10px;
+					
+					width: auto;
+					background-color: gray;
+					
+					> img {
+						max-width: 100%; 
+						max-height: 100%; 
+						object-fit: contain;
+					}
+
+					&.drag-on {
+						background-color: aqua;
+					}
 				}
 			}
+		}
 	}
 }

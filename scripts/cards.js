@@ -1,3 +1,5 @@
+import { gameState } from "./game.js";
+
 const cards = document.querySelector('.cards-hand');
 const gameField = document.querySelector('section.field');
 const drop = document.querySelector('.drop-card');
@@ -24,7 +26,7 @@ gameField.querySelectorAll('div').forEach(place => {
 		const x = place.dataset.x;
 		const y = place.dataset.y;
 
-		if (y == 9 && (x == 1 || x == 3 || x == 5)) {
+		if (x == 9 && (y == 1 || y == 3 || y == 5)) {
 			secretCard(x, y, cardId);
 		}
 		else {
@@ -133,9 +135,10 @@ const placeCard = (card, x, y, rot = Number(0)) => {
 			alert(data.message);
 		}
 		console.log(data);
+		gameState();
 	})
 	.catch(error => {
-		messageDiv.textContent = 'An error occurred during the request';
+		console.error('Error fetching data:', error);
 	});
 }
 
@@ -156,9 +159,10 @@ const playCard = (card, playerId) => {
 			alert(data.message);
 		}
 		console.log(data);
+		gameState();
 	})
 	.catch(error => {
-		messageDiv.textContent = 'An error occurred during the request';
+		console.error('Error fetching data:', error);
 	});
 }
 
@@ -179,9 +183,11 @@ const secretCard = (x, y, cardId) => {
 			alert(data.message);
 		}
 		console.log(data);
+		console.log(data.info.item);
+		gameState();
 	})
 	.catch(error => {
-		messageDiv.textContent = 'An error occurred during the request';
+		console.error('Error fetching data:', error);
 	});
 }
 
@@ -202,8 +208,9 @@ const dropCard = (cardId) => {
 			alert(data.message);
 		}
 		console.log(data);
+		gameState();
 	})
 	.catch(error => {
-		messageDiv.textContent = 'An error occurred during the request';
+		console.error('Error fetching data:', error);
 	});
 }
