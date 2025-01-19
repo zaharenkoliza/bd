@@ -1,4 +1,4 @@
-// import { blockPage } from "../../../utils/blockPage";
+import { blockPage } from "./blockPage.js";
 
 /**
  * Инициализация диалогов на странице. Выбираются все `dialog[data-dialog-name]`, и назначаются `*[data-show-dialog]` на диалоги с соответствующим именем.
