@@ -46,7 +46,7 @@ if ($response && !isset($response['error'])) {
 		<section class='aside'>
 			<div>
 				<span>Саботёр</span>
-				<button>правила</button>
+				<button data-show-dialog="rules-dialog">правила</button>
 				<button id="quit-button" data-id-room="<?php echo $idRoom; ?>" onclick="">выйти из игры</button>
 				<div id='timer'></div>
 			</div>
@@ -56,7 +56,7 @@ if ($response && !isset($response['error'])) {
 			<ul class="cards-hand"></ul>
 		</section>
 
-		<section class='field'>
+		<section class='field waiting'>
 			<div>
 			<?php
 				for ($y = 5; $y > 0; $y--) {
@@ -70,6 +70,7 @@ if ($response && !isset($response['error'])) {
 		}?>
 		</div>
 		</section>
+		<?php @include './rules.tpl'; ?>
 		<div id="message"></div>
 	</main>
 

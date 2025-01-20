@@ -13,7 +13,7 @@ if (!isset($_SESSION['token'])) {
 	<main>
 		<div>
 		<span>Саботёр</span>
-			<button>правила</button>
+			<button data-show-dialog="rules-dialog">правила</button>
 			<button class='log-out'>выйти из аккаунта</button>
 		</div>
 
@@ -28,6 +28,7 @@ if (!isset($_SESSION['token'])) {
 		</div>
 
 		<?php @include './createRoomDialog.tpl'; ?>
+		<?php @include './rules.tpl'; ?>
 
 		<div id="message"></div>
 	</main>

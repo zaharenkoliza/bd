@@ -9,7 +9,7 @@
 		<div>
 			<button data-show-dialog="auth-dialog">войти</button>
 			<button data-show-dialog="register-dialog">регистрация</button>
-			<button>правила</button>
+			<button data-show-dialog="rules-dialog">правила</button>
 		</div>
 
 		<dialog data-dialog-name="auth-dialog">
@@ -29,6 +29,7 @@
 				<button type="submit">Зарегистрироваться</button>
 			</form>
 		</dialog>
+		<?php @include './rules.tpl'; ?>
 		<div id="message"></div>
 	</main>
 	<script type="module" src="../scripts/index.js"></script>

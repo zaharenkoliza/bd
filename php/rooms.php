@@ -38,7 +38,7 @@ if (isset($response['status']) && $response['status'] === 'success') {
 	<main>
 	<div>
 		<span>Саботёр</span>
-			<button>правила</button>
+			<button data-show-dialog="rules-dialog">правила</button>
 			<button class='log-out'>выйти из аккаунта</button>
 		</div>
 
@@ -68,6 +68,7 @@ if (isset($response['status']) && $response['status'] === 'success') {
 			echo '</ul>';?>
 
 		<?php @include './createRoomDialog.tpl'; ?>
+		<?php @include './rules.tpl'; ?>
 
 		<div id="message"></div>
 	</main>
