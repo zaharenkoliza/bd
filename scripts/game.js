@@ -146,9 +146,10 @@ const players = async (data) => {
 }
 
 const updateTimer = (data) => {
-	if (!data) return;
+	console.log(data);
+	if (!data?.current_move) return;
 
-	timer.innerHTML = parseTimeToSeconds(data.end_time);
+	timer.innerHTML = parseTimeToSeconds(data.current_move.end_time);
 }
 
 const startGame = () => {
@@ -156,10 +157,11 @@ const startGame = () => {
 		const timerTimeout = setTimeout(() => {
 			timer.innerHTML = Number(timer.innerHTML) - 1;
 		}, 1000);
-	}
+	} 
+	section.classList.remove('waiting');
 }
 
-export const gameState = () => {
+export function gameState() {
 	fetch('../api/get_game_state.php', {
 		method: 'POST',
 		headers: {
@@ -172,7 +174,7 @@ export const gameState = () => {
 		cardOnField(data.info);
 		cardInHand(data.info);
 		players(data.info);
-		updateTimer(data.info['current_move']);
+		updateTimer(data.info);
 		console.log(data);
 		if (data.info.game_status != game_status && data.info.game_status =='process') {
 			startGame();
@@ -201,6 +203,7 @@ const idRoom = urlParams.get('room');
 const timer = document.getElementById('timer');
 let timerTimeout = null;
 let game_status = null;
+const section = document.querySelector('section.field');
 
 gameState();
 setInterval(gameState, 5000);

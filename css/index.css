@@ -80,6 +80,10 @@ h1 {
   font-size: 111px;
 }
 
+h2 {
+  font-size: 40px;
+}
+
 body {
   font-family: "Advent Pro", serif;
 }
@@ -87,7 +91,10 @@ body {
 button {
   background-color: #597E8E;
   border-radius: 60px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
 }
 
 main.game {
@@ -155,4 +162,18 @@ main.game section.field > div > div.row > div > img {
 }
 main.game section.field > div > div.row > div.drag-on {
   background-color: aqua;
+}
+
+dialog {
+  width: 40vw;
+  height: 40vh;
+}
+dialog > form > label {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+dialog [data-dialog-name=rules-dialog] {
+  width: 90vw;
+  height: 40vh;
 }/*# sourceMappingURL=index.css.map */
