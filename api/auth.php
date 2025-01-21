@@ -23,11 +23,7 @@ if ($response && isset($response['status']) && $response['status'] === 'success'
 	$_SESSION['token'] = $response['token'];
 	$_SESSION['user'] = ['login' => $login];
 	$_SESSION['users'] = $response['users'];
-
-	// echo "<pre>";
-	// print_r($response);
-	// print_r($_SESSION);
-	// echo "</pre>";
+	
 	echo json_encode([
 		'message' => 'success',
 		'info' => $response

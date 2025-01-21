@@ -26,6 +26,7 @@ $response = json_decode($result, true);
 if ($response && isset($response['status']) && $response['status'] === 'User successfully connected to the room') {
 	$_SESSION['players' . $room] = $response['players_in_room'];
 	$_SESSION['id_player' . $room] = $response['id_player'];
+	$_SESSION['id_player' . $room] = $response['id_player'];
 
 	echo json_encode([
 		'status' => 'success',
