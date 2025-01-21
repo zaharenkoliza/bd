@@ -66,12 +66,12 @@ if (isset($response['status']) && $response['status'] === 'success') {
 		else {
 			echo '<span>Нет доступных комнат</span>';
 		}
-			echo '</ul>';?>
+			echo '</ul>';
 
-		<?php @include './createRoomDialog.tpl'; ?>
-		<?php @include './rules.tpl'; ?>
-
-		<div id="message"></div>
+		include './rules.tpl'; 
+		include './alertDialog.tpl' ;
+		include './createRoomDialog.tpl';
+		?>
 	</main>
 	<script type="module" src="../scripts/index.js"></script>
 	<script type="module" src="../scripts/joinRoom.js"></script>

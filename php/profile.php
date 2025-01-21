@@ -27,10 +27,11 @@ if (!isset($_SESSION['token'])) {
 			<button id='roomIn'>войти в игру</button>
 		</div>
 
-		<?php @include './createRoomDialog.tpl'; ?>
-		<?php @include './rules.tpl'; ?>
-
-		<div id="message"></div>
+		<?php 
+		include './rules.tpl'; 
+		include './alertDialog.tpl' ;
+		include './createRoomDialog.tpl';
+		?>
 	</main>
 	<script type="module" src="../scripts/index.js"></script>
 	<script type="module" src="../scripts/availableRooms.js"></script>

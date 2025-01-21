@@ -29,9 +29,10 @@
 				<button type="submit">Зарегистрироваться</button>
 			</form>
 		</dialog>
-		<?php @include './rules.tpl'; ?>
-		<div id="message"></div>
+		<?php 
+			include './rules.tpl'; 
+			include './alertDialog.tpl' ;
+		?>
 	</main>
 	<script type="module" src="../scripts/index.js"></script>
-	<script type="module" src="../scripts/auth.js"></script>
 </html>

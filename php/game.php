@@ -48,12 +48,12 @@ print_r($_SESSION['token']);
 	<main class='game'>
 		<section class='aside'>
 			<div>
-				<span>Саботёр</span>
+				<h2>Саботёр</h2>
 				<button data-show-dialog="rules-dialog">правила</button>
 				<button id="quit-button" data-id-room="<?php echo $idRoom; ?>" onclick="">выйти из игры</button>
 				<span id='role'></span>
 				<div id='timer'></div>
-				<span id='game_status'></span>
+				<h3 id='game_status'></h3>
 			</div>
 
 			<ul class="players-list">
@@ -68,8 +68,8 @@ print_r($_SESSION['token']);
 				</li>
 			</ul>
 			<div class="drop-card waiting">Выбросить карту</div>
-			<button id="switch-cards">Перевернуть карты</button>
-			<ul class="cards-hand"></ul>
+			<button id="switch-cards" class="waiting">Перевернуть карты</button>
+			<ul class="cards-hand waiting"></ul>
 		</section>
 
 		<section class='field waiting'>
@@ -90,12 +90,12 @@ print_r($_SESSION['token']);
 			include './rules.tpl'; 
 			include './secretDialog.tpl' ;
 			include './endDialog.tpl' ;
+			include './alertDialog.tpl' ;
 		?>
-		<div id="message"></div>
 	</main>
 
 	<script type="module" src="../scripts/index.js"></script>
 	<script type="module" src="../scripts/quit.js"></script>
-	<script type="module" src="../scripts/game.js"></script>
-	<script type="module" src="../scripts/cards.js"></script>
+	<script type="module" src="../scripts/game/game.js"></script>
+	<script type="module" src="../scripts/game/cards.js"></script>
 </html>
