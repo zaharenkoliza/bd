@@ -29,6 +29,20 @@ html {
 	box-sizing: border-box;
 }
 
+.waiting {
+	opacity: 50%;
+	pointer-events: none;
+}
+
+.stop {
+	opacity: 50%;
+	pointer-events: none;
+}
+
+.hidden {
+	display: none;
+}
+
 @import './_reset.scss';
 @import './_fonts.scss';
 @import './_button.scss';
