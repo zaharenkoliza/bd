@@ -47,6 +47,8 @@ if (isset($response['status']) && $response['status'] === 'success') {
 		</label>
 		<input name="name" type="text">
 
+		<button data-show-dialog="create-room-dialog">создать игру</button>
+
 		<h2>Список игр, доступных для подключения</h2>
 		<?php
 			echo '<ul class="rooms-list">';
@@ -63,7 +65,6 @@ if (isset($response['status']) && $response['status'] === 'success') {
 		}
 		else {
 			echo '<span>Нет доступных комнат</span>';
-			echo '<button data-show-dialog="create-room-dialog">создать игру</button>';
 		}
 			echo '</ul>';?>
 

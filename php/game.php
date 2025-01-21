@@ -17,25 +17,28 @@ if (!$result) {
 	header("Location: ./rooms.php");
 }
 
-$stmt = $pdo->prepare('SELECT s335141.get_game_state(:t, :room)');
-$stmt->execute(['t' => $_SESSION['token'], 'room' => $idRoom]);
-$result = $stmt->fetchColumn();
+// $stmt = $pdo->prepare('SELECT s335141.get_game_state(:t, :room)');
+// $stmt->execute(['t' => $_SESSION['token'], 'room' => $idRoom]);
+// $result = $stmt->fetchColumn();
 
-$response = json_decode($result, true);
+// $response = json_decode($result, true);
 
-if ($response && !isset($response['error']) && isset($response['players_in_room'])) {
-	$_SESSION['players' . $idRoom] = $response['players_in_room'];
-	$_SESSION['game'] = $response;
-}
+// if ($response && !isset($response['error']) && isset($response['players_in_room'])) {
+// 	$_SESSION['players' . $idRoom] = $response['players_in_room'];
+// 	$_SESSION['game'] = $response;
+// }
 
-$stmt = $pdo->prepare('SELECT id FROM s335141.players where login_user =:login and id_room =:room');
-$stmt->execute(['login' => $_SESSION['user']['login'], 'room' => $idRoom]);
-$result = $stmt->fetch();
+// $stmt = $pdo->prepare('SELECT id FROM s335141.players where login_user =:login and id_room =:room');
+// $stmt->execute(['login' => $_SESSION['user']['login'], 'room' => $idRoom]);
+// $result = $stmt->fetch();
 
-if ($response && !isset($response['error'])) {
-	$_SESSION['id_player' . $idRoom] = $response;
-	print_r($_SESSION['token']);
-}
+// if ($response && !isset($response['error'])) {
+// 	$_SESSION['id_player' . $idRoom] = $response;
+// 	print_r($_SESSION['token']);
+// }
+
+$idPlayer = $_SESSION['id_player' . $idRoom];
+print_r($_SESSION['token']);
 ?>
 
 <!DOCTYPE html>
@@ -48,11 +51,24 @@ if ($response && !isset($response['error'])) {
 				<span>Саботёр</span>
 				<button data-show-dialog="rules-dialog">правила</button>
 				<button id="quit-button" data-id-room="<?php echo $idRoom; ?>" onclick="">выйти из игры</button>
+				<span id='role'></span>
 				<div id='timer'></div>
+				<span id='game_status'></span>
 			</div>
 
-			<ul class="players-list"></ul>
-			<div class="drop-card">Выбросить карту</div>
+			<ul class="players-list">
+				<li data-player-id="<?php echo $idPlayer ?>">
+					<?php 
+					foreach ($_SESSION['players' . $idRoom] as $player) {
+						if ($player['login_user'] === $_SESSION['user']['login']) {
+							echo $player['name'];
+							break;
+						}
+					}?> (вы)
+				</li>
+			</ul>
+			<div class="drop-card waiting">Выбросить карту</div>
+			<button id="switch-cards">Перевернуть карты</button>
 			<ul class="cards-hand"></ul>
 		</section>
 
@@ -70,7 +86,11 @@ if ($response && !isset($response['error'])) {
 		}?>
 		</div>
 		</section>
-		<?php @include './rules.tpl'; ?>
+		<?php 
+			include './rules.tpl'; 
+			include './secretDialog.tpl' ;
+			include './endDialog.tpl' ;
+		?>
 		<div id="message"></div>
 	</main>
 
