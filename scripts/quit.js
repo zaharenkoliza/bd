@@ -7,7 +7,6 @@ button.addEventListener('click', (e) => {
 	const id = urlParams.get('room');
 
 	const idRoom = button.dataset.idRoom;
-	const messageDiv = document.getElementById('message');
 
 	const formData = new URLSearchParams();
 	formData.append('room', idRoom);
@@ -24,14 +23,12 @@ button.addEventListener('click', (e) => {
 		return response.json();
 	})
 	.then(data => {
-		messageDiv.textContent = data.status;
 		console.log(data.message);
 		if (data.status === 'success') {
 			window.location.href = './profile.php';
 		}
 	})
 	.catch(error => {
-		messageDiv.textContent = error;
 		console.error(error);
 	});
 });

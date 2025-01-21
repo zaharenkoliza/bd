@@ -2,9 +2,9 @@ import { Dialog } from "./dialog.js";
 import { initLogOutButton } from "./logOut.js";
 import { initNewRoom } from "./newRoom.js";
 import { initRegisterForm } from "./register.js";
-// import { loadPage } from './load.js';
+import { initStartPage } from "./start/index.js";
 
 Dialog.initDialogs();
 initNewRoom();
 initLogOutButton();
-initRegisterForm();
+initStartPage();

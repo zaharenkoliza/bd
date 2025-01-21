@@ -23,7 +23,6 @@ export function initNewRoom() {
 			return response.json();
 		})
 		.then(data => {
-			messageDiv.textContent = data.message;
 			console.log(data.message);
 			if (data.message === 'success') {
 				const idRoom = data['info']['id_room'];
@@ -33,7 +32,6 @@ export function initNewRoom() {
 			}
 		})
 		.catch(error => {
-			messageDiv.textContent = error;
 			console.error(error);
 		});
 	});

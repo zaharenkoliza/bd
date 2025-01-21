@@ -1,5 +1,5 @@
-import { gameState, gameStateNoFetch } from "./game.js";
-import { Dialog } from "./dialog.js";
+import { gameStateNoFetch } from "./game.js";
+import { Dialog } from "../dialog.js";
 
 const cards = document.querySelector('.cards-hand');
 const gameField = document.querySelector('section.field');
@@ -187,13 +187,15 @@ const secretCard = async (x, y, cardId) => {
 			throw new Error('Network response was not ok');
 		}
 
+		const data = await response.json();
+
 		if (data.status != 'success') {
 			alert(data.message);
 		}
 		else {
 			const dialog = document.querySelector('dialog[data-dialog-name="secret-dialog"]');
 			dialog.querySelector('img').src = `../img/tunnel_cards/${data.secret_card.id_type_card}.png`;
-			Dialog.openDialog(dialog, null);
+			Dialog.openDialog(secret-dialog);
 			console.log(data.info.secret_card);
 			gameStateNoFetch(data.info);
 		}

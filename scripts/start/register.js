@@ -1,3 +1,5 @@
+import { fetchDialog } from "../utils/fetchDialog.js";
+
 export function initRegisterForm() {
 	const form = document.getElementById('registerForm');
 
@@ -7,7 +9,6 @@ export function initRegisterForm() {
 		e.preventDefault();
 		const login = form.querySelector('input[name=login]').value;
     	const password = form.querySelector('input[name=password]').value;
-		const messageDiv = document.getElementById('message');
 
 		fetch('../api/register.php', {
 			method: 'POST',
@@ -23,17 +24,17 @@ export function initRegisterForm() {
 			return response.json();
 		})
 		.then(data => {
-			messageDiv.textContent = data.message;
+			fetchDialog(data.status, data.message);
 			console.log(data.message);
 			if (data.message === 'success') {
 				window.location.href = './profile.php';
 			}
-			else {
-				alert(data.message);
-			}
+			// else {
+			// 	alert(data.message);
+			// }
 		})
 		.catch(error => {
-			messageDiv.textContent = error;
+			fetchDialog('Error fetching data:', error);
 			console.error(error);
 		});
 	});

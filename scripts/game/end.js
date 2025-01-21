@@ -1,39 +1,44 @@
 import { Dialog } from "../dialog.js";
-import { game_status, gameStatus, longPolling, span_game_status, timer, timerInterval } from "../game.js";
+import { gameStatus, longPolling, span_game_status, timer } from "./game.js";
 import { disable } from "./disable.js";
 
 export const winOrLose = ( data ) => {
-	console.log(game_status);
 	gameStatus.game_status = data.game_status;
 
 	const dialog = document.querySelector('dialog[data-dialog-name="end-dialog"]');
 
 	if (data.you.role == 'dwarf') {
-		if (game_status == 'win') {
-			dialog.querySelector('.win').remove('hidden');
+		if (gameStatus.game_status == 'win') {
+			dialog.querySelector('.win').classList.remove('hidden');
 			span_game_status.innerHTML = 'Игра закончена, гномы-золотоискатели победили';
+			dialog.querySelector('.dwarf').classList.remove('hidden');
 		}
 		else {
-			dialog.querySelector('.lose').remove('hidden');
+			dialog.querySelector('.lose').classList.remove('hidden');
 			span_game_status.innerHTML = 'Игра закончена, гномы-вредители победили';
+			dialog.querySelector('.sabouter').classList.remove('hidden');
 		}
-		dialog.querySelector('.dwarf').remove('hidden');
 	}
 	else {
-		if (game_status == 'win') {
-			dialog.querySelector('.lose').remove('hidden');
+		if (gameStatus.game_status == 'win') {
+			dialog.querySelector('.lose').classList.remove('hidden');
 			span_game_status.innerHTML = 'Игра закончена, гномы-золотоискатели победили';
+			dialog.querySelector('.dwarf').classList.remove('hidden');
 		}
 		else {
-			dialog.querySelector('.win').remove('hidden');
+			dialog.querySelector('.win').classList.remove('hidden');
 			span_game_status.innerHTML = 'Игра закончена, гномы-вредители победили';
+			dialog.querySelector('.sabouter').classList.remove('hidden');
 		}
-		dialog.querySelector('.sabouter').remove('hidden');
 	}
 
-	clearInterval(timerInterval);
+	clearInterval(gameStatus.timerInterval);
 	clearInterval(longPolling);
 	timer.innerHTML = '';
-	disable();
-	Dialog.openDialog(dialog, null);
+	document.querySelector('section.field')?.classList.add('waiting');
+	// document.querySelector('ul.players-list')?.classList.toggle('waiting');
+	document.querySelector('ul.cards-hand')?.classList.add('waiting');
+	document.querySelector('div.drop-card')?.classList.add('waiting');
+	document.querySelector('button#switch-cards')?.classList.add('waiting');
+	Dialog.openDialog("end-dialog");
 }

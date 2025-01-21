@@ -1,74 +1,8 @@
 import { addListenerForPlayer, addListenersForPlayers } from "./cards.js";
-import { winOrLose } from "./game/end.js";
+import { winOrLose } from "./end.js";
+import { getTunnelTypeId, getActionTypeId, getActionItem } from "./getType.js";
+import { startGame } from "./start.js";
 
-const getTunnelTypeId = async (card) => {
-	const messageDiv = document.getElementById('message');
-
-	try {
-		const response = await fetch('../api/type_tunnel_card.php', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			body: `card=${encodeURIComponent(card)}&room=${encodeURIComponent(idRoom)}`
-		});
-		if (!response.ok) {
-			throw new Error('Network response was not ok');
-		}
-
-		const data = await response.json();
-		return data;
-	} catch (error) {
-		console.error('Error fetching data:', error);
-		return false;
-	}
-}
-
-const getActionTypeId = async (card) => {
-	const messageDiv = document.getElementById('message');
-
-	try {
-		const response = await fetch('../api/type_action_card.php', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			body: `card=${encodeURIComponent(card)}&room=${encodeURIComponent(idRoom)}`
-		});
-		if (!response.ok) {
-			throw new Error('Network response was not ok');
-		}
-
-		const data = await response.json();
-		return data;
-	} catch (error) {
-		console.error('Error fetching data:', error);
-		return false;
-	}
-}
-
-const getActionItem = async (card) => {
-	try {
-		const response = await fetch('../api/item_action_card.php', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			body: `card=${encodeURIComponent(card)}`
-		});
-		if (!response.ok) {
-			const errorText = await response.text();
-			console.error('Error response:', response.status, errorText);
-			throw new Error('Network response was not ok');
-		}
-
-		const data = await response.json();
-		return data;
-	} catch (error) {
-		console.error('Error fetching data:', error);
-		return false;
-	}
-}
 const cardOnField = async (data) => {
 	if (!data.cards_on_field) return;
 
@@ -224,45 +158,19 @@ const updateTimer = (data) => {
 	timer.innerHTML = parseTimeToSeconds(data.current_move.end_time);
 }
 
-const startGame = ( data ) => {
-	gameStatus.game_status = 'process';
-	span_game_status.innerHTML = 'Игра началась';
-
-	if (!timerInterval) {
-		const timerInterval = setInterval(() => {
-			if (Number(timer.innerHTML) - 1 >= 0) {
-				timer.innerHTML = Number(timer.innerHTML) - 1;
-			}
-			else {
-				gameState();
-			}
-		}, 1000);
-	} 
-	section.classList.remove('waiting');
-	drop.classList.remove('waiting');
-	document.getElementById('role').innerHTML = data.you.role === 'dwarf' ? 'Гном-золотоискатель' : 'Гном-вредитель';
-
-	document.querySelector(`div[data-x="${9}"][data-y="${1}"]`).querySelector('img').src = `../img/cover.png`;
-	document.querySelector(`div[data-x="${9}"][data-y="${3}"]`).querySelector('img').src = `../img/cover.png`;
-	document.querySelector(`div[data-x="${9}"][data-y="${5}"]`).querySelector('img').src = `../img/cover.png`;
-}
-
 export function gameStateNoFetch( data ) {
 	cardOnField(data);
 	cardInHand(data);
 	players(data);
 	updateTimer(data);
 	console.log(data);
-	if (data.game_status != game_status && data.game_status =='process') {
+	if (data.game_status != gameStatus.game_status && data.game_status =='process') {
 		startGame(data);
 	}
-	if (data.game_status != game_status && data.game_status =='win') {
-		win(data);
+	if (data.game_status != gameStatus.game_status && (data.info.game_status =='win' || data.info.game_status =='lose')) {
+		winOrLose(data.info);
 	}
-	if (data.game_status != game_status && data.game_status =='lose') {
-		lose(data);
-	}
-	game_status = data.game_status;
+	gameStatus.game_status = data.game_status;
 }
 
 export function gameState() {
@@ -280,7 +188,9 @@ export function gameState() {
 		players(data.info);
 		updateTimer(data.info);
 		console.log(data);
+		console.log(gameStatus.game_status);
 		if (data.info.game_status != gameStatus.game_status && data.info.game_status =='process') {
+			console.log(gameStatus.game_status);
 			startGame(data.info);
 		}
 		if (data.info.game_status != gameStatus.game_status && (data.info.game_status =='win' || data.info.game_status =='lose')) {
@@ -305,15 +215,15 @@ function parseTimeToSeconds(timeString) {
 
 
 const urlParams = new URLSearchParams(window.location.search);
-const idRoom = urlParams.get('room');
+export const idRoom = urlParams.get('room');
 export const timer = document.getElementById('timer');
 
-export let timerInterval = null;
-export var game_status = null;
+// export let timerInterval = null;
+// export var game_status = null;
 
 export const gameStatus = {
 	game_status: null,
-	current_player: null,
+	timerInterval: null,
 	players: []
 };
 

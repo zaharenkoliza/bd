@@ -5,7 +5,6 @@ buttons.forEach(button => {
 		e.preventDefault();
 		const idRoom = button.dataset.idRoom;
 		const name = document.querySelector('input[name="name"]').value.trim();
-		const messageDiv = document.getElementById('message');
 
 		if (!name) {
 			alert('Введите имя!');
@@ -19,15 +18,12 @@ buttons.forEach(button => {
 				body: `room=${encodeURIComponent(idRoom)}&name=${encodeURIComponent(name)}`
 			})
 			.then(response => response.json())
-			.then(data => {
-				messageDiv.textContent = data.message;
-	
+			.then(data => {	
 				if (data.status === 'success' || data.message === 'You are already in this room') {
 					window.location.href = './game.php?room=' + idRoom;
 				}
 			})
 			.catch(error => {
-				messageDiv.textContent = 'An error occurred during the request';
 			});
 		}
 	});
