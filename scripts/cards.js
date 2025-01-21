@@ -1,4 +1,5 @@
-import { gameState } from "./game.js";
+import { gameState, gameStateNoFetch } from "./game.js";
+import { Dialog } from "./dialog.js";
 
 const cards = document.querySelector('.cards-hand');
 const gameField = document.querySelector('section.field');
@@ -30,7 +31,7 @@ gameField.querySelectorAll('div').forEach(place => {
 			secretCard(x, y, cardId);
 		}
 		else {
-			placeCard(cardId, x, y, 0);
+			placeCard(cardId, x, y, rot);
 		}
 
 		card.setAttribute('draggable', 'false');
@@ -118,24 +119,27 @@ export const addListenerForPlayer = (li) => {
 	});
 }
 
-const placeCard = (card, x, y, rot = Number(0)) => {
+const placeCard = (card, x, y, rot) => {
 	console.log(card, x, y);
-	const messageDiv = document.getElementById('message');
+	
+	if (!card || !x || !y) return;
 
 	fetch('../api/check_and_place_card.php', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 		},
-		body: `card=${encodeURIComponent(card)}&x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}&rot=${encodeURIComponent(0)}`
+		body: `card=${encodeURIComponent(card)}&x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}&rot=${encodeURIComponent(rot)}`
 	})
 	.then(response => response.json())
 	.then(data => {
 		if (data.status != 'success') {
 			alert(data.message);
 		}
+		else{
+			gameStateNoFetch(data.info);
+		}
 		console.log(data);
-		gameState();
 	})
 	.catch(error => {
 		console.error('Error fetching data:', error);
@@ -158,37 +162,45 @@ const playCard = (card, playerId) => {
 		if (data.status != 'success') {
 			alert(data.message);
 		}
+		else {
+			gameStateNoFetch(data.info);
+		}
 		console.log(data);
-		gameState();
 	})
 	.catch(error => {
 		console.error('Error fetching data:', error);
 	});
 }
 
-const secretCard = (x, y, cardId) => {
+const secretCard = async (x, y, cardId) => {
 	console.log(x, y, cardId);
-	const messageDiv = document.getElementById('message');
 
-	fetch('../api/action_card_on_place.php', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
-		},
-		body: `card=${encodeURIComponent(cardId)}&x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}`
-	})
-	.then(response => response.json())
-	.then(data => {
+	try {
+		const response = await fetch('../api/action_card_on_place.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: `card=${encodeURIComponent(cardId)}&x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}`
+		});
+		if (!response.ok) {
+			throw new Error('Network response was not ok');
+		}
+
 		if (data.status != 'success') {
 			alert(data.message);
 		}
+		else {
+			const dialog = document.querySelector('dialog[data-dialog-name="secret-dialog"]');
+			dialog.querySelector('img').src = `../img/tunnel_cards/${data.secret_card.id_type_card}.png`;
+			Dialog.openDialog(dialog, null);
+			console.log(data.info.secret_card);
+			gameStateNoFetch(data.info);
+		}
 		console.log(data);
-		console.log(data.info.item);
-		gameState();
-	})
-	.catch(error => {
+	} catch (error) {
 		console.error('Error fetching data:', error);
-	});
+	}
 }
 
 const dropCard = (cardId) => {
@@ -207,10 +219,21 @@ const dropCard = (cardId) => {
 		if (data.status != 'success') {
 			alert(data.message);
 		}
+		else {
+			gameStateNoFetch(data.info);
+		}
 		console.log(data);
-		gameState();
 	})
 	.catch(error => {
 		console.error('Error fetching data:', error);
 	});
 }
+
+const switchButton = document.getElementById('switch-cards');
+const ul = document.querySelector('ul.cards-hand');
+export let rot = 0;
+switchButton.addEventListener('click', () => {
+	rot = rot == 0 ? 180 : 0;
+	ul.classList.toggle('switch');
+})
+

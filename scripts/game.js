@@ -1,4 +1,5 @@
 import { addListenerForPlayer, addListenersForPlayers } from "./cards.js";
+import { winOrLose } from "./game/end.js";
 
 const getTunnelTypeId = async (card) => {
 	const messageDiv = document.getElementById('message');
@@ -45,6 +46,29 @@ const getActionTypeId = async (card) => {
 		return false;
 	}
 }
+
+const getActionItem = async (card) => {
+	try {
+		const response = await fetch('../api/item_action_card.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: `card=${encodeURIComponent(card)}`
+		});
+		if (!response.ok) {
+			const errorText = await response.text();
+			console.error('Error response:', response.status, errorText);
+			throw new Error('Network response was not ok');
+		}
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error('Error fetching data:', error);
+		return false;
+	}
+}
 const cardOnField = async (data) => {
 	if (!data.cards_on_field) return;
 
@@ -54,6 +78,9 @@ const cardOnField = async (data) => {
 		const typeId = await getTunnelTypeId(element['id_card']);
 		if (typeId.status == 'success'){
 			div.querySelector('img').src = `../img/tunnel_cards/${Number(typeId.message)}.png`;
+			if (element['rotation'] != 0) {
+				div.querySelector('img').classList.add('switch');
+			}
 			div.classList.remove('empty');
 		}
 		else {
@@ -62,8 +89,16 @@ const cardOnField = async (data) => {
 	};
 }
 
+let isProcessing = false;
+
 const cardInHand = async (data) => {
-	if (!data.cards_in_hand) return;
+	if (isProcessing) return;
+	isProcessing = true;
+
+	if (!data.cards_in_hand) {
+		isProcessing = false;
+		return;
+	}
 
 	const hand = document.querySelector('ul.cards-hand');
 
@@ -102,7 +137,38 @@ const cardInHand = async (data) => {
 		hand.removeChild(li);
 	});
 
-	// addListenersForCards();
+	isProcessing = false;
+}
+
+const playedCards = async ( played_cards, li ) => {
+	const allAttributes = li.getAttributeNames();
+
+	for (const attribute of allAttributes) {
+		if (attribute.startsWith('data-played-card-')) {
+			const cardId = attribute.replace('data-played-card-', '');
+			if (!played_cards.includes(Number(cardId))) {
+				li.removeAttribute(attribute);
+				const item = await getActionItem(cardId);
+				if (item.status == 'success') {
+					li.classList.remove(`${item.message}`);
+				}
+			}
+		}
+	}
+	if (played_cards[0] !== null) {
+		for (const card of played_cards) {
+			const targetAttribute = `data-played-card-${card}`;
+			const value = li.getAttribute(targetAttribute);
+			if (!value) {
+				const item = await getActionItem(card);
+				if (item.status == 'success') {
+					console.log(item);
+					li.setAttribute(targetAttribute, item.message);
+					li.classList.add(`${item.message}`);
+				}
+			}
+		}
+	}
 }
 
 const players = async (data) => {
@@ -118,11 +184,12 @@ const players = async (data) => {
 	});
 
 	for (const player of data.players) {
-		const { player_id, player_name } = player;
+		const { player_id, player_name, played_cards } = player;
 		let li = null;
 
 		if (currentPlayers.has(player_id.toString())) {
 			li = document.querySelector(`li[data-player-id="${player_id}"]`);
+			playedCards(played_cards, li);
 			currentPlayers.delete(player_id.toString());
 		} else {
 			li = document.createElement('li');
@@ -130,6 +197,7 @@ const players = async (data) => {
 			li.textContent = player_name;
 			ul.appendChild(li);
 			addListenerForPlayer(li);
+			playedCards(played_cards, li);
 		}
 
 		if (player_id == curPlayer) {
@@ -137,6 +205,10 @@ const players = async (data) => {
 		}
 		else {
 			li.classList.remove('cur-move');
+		}
+
+		if (player_id == data.you.id_player) {
+			li.innerHTML = data.you.name + ' (вы)';
 		}
 	};
 
@@ -146,19 +218,51 @@ const players = async (data) => {
 }
 
 const updateTimer = (data) => {
+	if (!data.current_move?.end_time) return;
 	console.log(data);
-	if (!data?.current_move) return;
 
 	timer.innerHTML = parseTimeToSeconds(data.current_move.end_time);
 }
 
-const startGame = () => {
-	if (!timerTimeout) {
-		const timerTimeout = setTimeout(() => {
-			timer.innerHTML = Number(timer.innerHTML) - 1;
+const startGame = ( data ) => {
+	gameStatus.game_status = 'process';
+	span_game_status.innerHTML = 'Игра началась';
+
+	if (!timerInterval) {
+		const timerInterval = setInterval(() => {
+			if (Number(timer.innerHTML) - 1 >= 0) {
+				timer.innerHTML = Number(timer.innerHTML) - 1;
+			}
+			else {
+				gameState();
+			}
 		}, 1000);
 	} 
 	section.classList.remove('waiting');
+	drop.classList.remove('waiting');
+	document.getElementById('role').innerHTML = data.you.role === 'dwarf' ? 'Гном-золотоискатель' : 'Гном-вредитель';
+
+	document.querySelector(`div[data-x="${9}"][data-y="${1}"]`).querySelector('img').src = `../img/cover.png`;
+	document.querySelector(`div[data-x="${9}"][data-y="${3}"]`).querySelector('img').src = `../img/cover.png`;
+	document.querySelector(`div[data-x="${9}"][data-y="${5}"]`).querySelector('img').src = `../img/cover.png`;
+}
+
+export function gameStateNoFetch( data ) {
+	cardOnField(data);
+	cardInHand(data);
+	players(data);
+	updateTimer(data);
+	console.log(data);
+	if (data.game_status != game_status && data.game_status =='process') {
+		startGame(data);
+	}
+	if (data.game_status != game_status && data.game_status =='win') {
+		win(data);
+	}
+	if (data.game_status != game_status && data.game_status =='lose') {
+		lose(data);
+	}
+	game_status = data.game_status;
 }
 
 export function gameState() {
@@ -176,10 +280,12 @@ export function gameState() {
 		players(data.info);
 		updateTimer(data.info);
 		console.log(data);
-		if (data.info.game_status != game_status && data.info.game_status =='process') {
-			startGame();
+		if (data.info.game_status != gameStatus.game_status && data.info.game_status =='process') {
+			startGame(data.info);
 		}
-		game_status = data.info.game_status;
+		if (data.info.game_status != gameStatus.game_status && (data.info.game_status =='win' || data.info.game_status =='lose')) {
+			winOrLose(data.info);
+		}
 	})
 	.catch(error => {
 		console.error('Error fetching data:', error);
@@ -200,10 +306,22 @@ function parseTimeToSeconds(timeString) {
 
 const urlParams = new URLSearchParams(window.location.search);
 const idRoom = urlParams.get('room');
-const timer = document.getElementById('timer');
-let timerTimeout = null;
-let game_status = null;
+export const timer = document.getElementById('timer');
+
+export let timerInterval = null;
+export var game_status = null;
+
+export const gameStatus = {
+	game_status: null,
+	current_player: null,
+	players: []
+};
+
 const section = document.querySelector('section.field');
+const drop = document.querySelector('.drop-card');
+
+export const span_game_status = document.getElementById('game_status');
+span_game_status.innerHTML = 'Ожидание игроков';
 
 gameState();
-setInterval(gameState, 5000);
+export let longPolling = setInterval(gameState, 5000);
