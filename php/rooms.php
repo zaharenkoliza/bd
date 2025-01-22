@@ -4,7 +4,6 @@ session_start();
 if (!isset($_SESSION['token'])) {
 	header("Location: ./start.php");
 }
-echo $_SESSION['token'];
 function updateSessionFromApi() {
 	$apiUrl = 'https://se.ifmo.ru/~s335141/bd/api/available_rooms.php';
 	$response = file_get_contents($apiUrl);
@@ -17,9 +16,6 @@ function updateSessionFromApi() {
 }
 
 $response = updateSessionFromApi();
-echo '<pre>';
-echo $response;
-echo '</pre>';
 
 if (isset($response['status']) && $response['status'] === 'success') {
 	$_SESSION['rooms'] = $response['info'];
@@ -35,11 +31,16 @@ if (isset($response['status']) && $response['status'] === 'success') {
 <html>
 	<?php @include './head.tpl'; ?>	
 	
-	<main>
-	<div>
-		<span>Саботёр</span>
+	<main class='rooms'>
+		<div>
+			<span>Саботёр</span>
 			<button data-show-dialog="rules-dialog">правила</button>
 			<button class='log-out'>выйти из аккаунта</button>
+			<h2> 
+				<?php 
+					echo $_SESSION['user']['login'];
+				?>
+			</h2>
 		</div>
 
 		<label for="name">
@@ -55,7 +56,7 @@ if (isset($response['status']) && $response['status'] === 'success') {
 			if ($_SESSION['rooms']){
 			foreach ($_SESSION['rooms'] as $room) {
 				echo '<li>';
-				echo '<span>' . htmlspecialchars($room['id']) . '</span>';
+				echo '<span>№' . htmlspecialchars($room['id']) . '</span>';
 				echo '<span>' . htmlspecialchars($room['count']) . '</span>';
 				echo '<span>' . htmlspecialchars($room['time_for_move']) . '</span>';
 				echo '<span>' . htmlspecialchars($room['amount_of_players']) . '</span>';

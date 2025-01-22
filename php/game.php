@@ -38,7 +38,7 @@ if (!$result) {
 // }
 
 $idPlayer = $_SESSION['id_player' . $idRoom];
-print_r($_SESSION['token']);
+// print_r($_SESSION['token']);
 ?>
 
 <!DOCTYPE html>
@@ -48,28 +48,32 @@ print_r($_SESSION['token']);
 	<main class='game'>
 		<section class='aside'>
 			<div>
-				<h2>Саботёр</h2>
+				<h4 id='game_status'></h4>
 				<button data-show-dialog="rules-dialog">правила</button>
-				<button id="quit-button" data-id-room="<?php echo $idRoom; ?>" onclick="">выйти из игры</button>
+				<button id="quit-button" data-id-room="<?php echo $idRoom; ?>">выйти из игры</button>
 				<span id='role'></span>
 				<div id='timer'></div>
-				<h3 id='game_status'></h3>
 			</div>
 
-			<ul class="players-list">
-				<li data-player-id="<?php echo $idPlayer ?>">
-					<?php 
-					foreach ($_SESSION['players' . $idRoom] as $player) {
-						if ($player['login_user'] === $_SESSION['user']['login']) {
-							echo $player['name'];
-							break;
-						}
-					}?> (вы)
-				</li>
-			</ul>
-			<div class="drop-card waiting">Выбросить карту</div>
-			<button id="switch-cards" class="waiting">Перевернуть карты</button>
-			<ul class="cards-hand waiting"></ul>
+			<div class='players'>
+				<h3>Игроки</h3>
+				<ul class="players-list">
+					<li data-player-id="<?php echo $idPlayer ?>">
+						<?php 
+						foreach ($_SESSION['players' . $idRoom] as $player) {
+							if ($player['login_user'] === $_SESSION['user']['login']) {
+								echo $player['name'];
+								break;
+							}
+						}?> (вы)
+					</li>
+				</ul>
+			</div>
+			<div class="game-play">
+				<div class="drop-card waiting">выбросить карту</div>
+				<button id="switch-cards" class="waiting">перевернуть карты</button>
+				<ul class="cards-hand waiting"></ul>
+			</div>
 		</section>
 
 		<section class='field waiting'>
