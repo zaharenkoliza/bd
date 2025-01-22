@@ -10,8 +10,32 @@ dialog {
 		}
 	}
 
-	[data-dialog-name="rules-dialog"] {
+	&[data-dialog-name='rules-dialog'] {
 		width: 90vw;
-		height: 40vh;
+		height: 90vh;
+
+		> div {
+			display: grid;
+			gap: 16px;
+			font-size: 20px;
+			width: 80%;
+			padding: 30px;
+
+			img {
+				max-height: 300px;
+			}
+
+			> div {
+				display: flex;
+				gap: 20px;
+				> p{
+					padding-top: 10px;
+				}
+			}
+
+			> ul{
+				list-style: unset;
+			}
+		}
 	}
 }

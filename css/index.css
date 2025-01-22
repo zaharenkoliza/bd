@@ -1,45 +1,3 @@
-html > body {
-  background-image: url("../img/background.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-html > body main {
-  background-color: white;
-  opacity: 0.95;
-  width: 90vw;
-  height: 90vh;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 40px;
-  box-sizing: border-box;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.waiting {
-  opacity: 50%;
-  pointer-events: none;
-}
-
-.stop {
-  opacity: 50%;
-  pointer-events: none;
-}
-
-.hidden {
-  display: none;
-}
-
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -48,7 +6,6 @@ html, body, div, span, object, iframe, figure, h1, h2, h3, h4, h5, h6, p, blockq
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
   vertical-align: baseline;
   text-rendering: optimizeLegibility;
@@ -89,6 +46,51 @@ input {
   border-radius: 0;
 }
 
+html > body {
+  background-image: url("../img/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  flex-direction: column;
+  align-items: center;
+}
+html > body main {
+  background-color: rgba(255, 255, 255, 0.95);
+  width: 90vw;
+  height: 90vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.waiting {
+  opacity: 50%;
+  pointer-events: none;
+}
+
+.stop {
+  opacity: 50%;
+  pointer-events: none;
+}
+
+.hidden {
+  display: none;
+}
+
+h3 {
+  font-size: 30px;
+}
+
 h1 {
   font-family: "Rubik Doodle Shadow", serif;
   font-size: 111px;
@@ -104,11 +106,12 @@ body {
 
 button {
   background-color: #597E8E;
-  border-radius: 60px;
+  border-radius: 5px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
   border: none;
   padding: 8px 16px;
   font-size: 16px;
+  cursor: pointer;
 }
 
 main.game {
@@ -123,28 +126,37 @@ main.game section.aside {
   height: 100%;
   justify-content: space-between;
 }
-main.game section.aside > ul.cards-hand {
+main.game section.aside > div.game-play > ul.cards-hand {
   display: grid;
   justify-self: flex-end;
   grid-template-columns: repeat(3, 1fr);
 }
-main.game section.aside > ul.cards-hand > li > img {
+main.game section.aside > div.game-play > ul.cards-hand > li > img {
   width: 40px;
 }
-main.game section.aside > ul.players-list {
+main.game section.aside > div.players {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
-main.game section.aside > ul.players-list > li {
-  background-color: aquamarine;
+main.game section.aside > div.players > ul.players-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
+main.game section.aside > div.players > ul.players-list > li {
+  background-color: #597E8E;
+  height: 40px;
   z-index: 2;
   position: relative;
+  font-size: 25px;
+  padding: 5px;
+  border-radius: 5px;
 }
-main.game section.aside > ul.players-list > li.cur-move {
+main.game section.aside > div.players > ul.players-list > li.cur-move {
   background-color: green;
 }
-main.game section.aside > ul.players-list > li.trolley::after {
-  background-image: url(../img/action_cards/trolley.png);
+main.game section.aside > div.players > ul.players-list > li.trolley::after {
+  background-image: url("../img/action_cards/trolley.png");
   background-size: contain;
   background-repeat: no-repeat;
   content: "";
@@ -153,11 +165,11 @@ main.game section.aside > ul.players-list > li.trolley::after {
   z-index: 0;
   pointer-events: none;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
 }
-main.game section.aside > ul.players-list > li.pick::after {
-  background-image: url(../img/action_cards/pick.png);
+main.game section.aside > div.players > ul.players-list > li.pick::after {
+  background-image: url("../img/action_cards/pick.png");
   background-size: contain;
   background-repeat: no-repeat;
   content: "";
@@ -166,11 +178,11 @@ main.game section.aside > ul.players-list > li.pick::after {
   z-index: 0;
   pointer-events: none;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
 }
-main.game section.aside > ul.players-list > li.lamp::after {
-  background-image: url(../img/action_cards/lamp.png);
+main.game section.aside > div.players > ul.players-list > li.lamp::after {
+  background-image: url("../img/action_cards/lamp.png");
   background-size: contain;
   background-repeat: no-repeat;
   content: "";
@@ -179,8 +191,8 @@ main.game section.aside > ul.players-list > li.lamp::after {
   z-index: 0;
   pointer-events: none;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
 }
 main.game ul.cards-hand.switch > li > img,
 main.game img.switch {
@@ -189,6 +201,8 @@ main.game img.switch {
 main.game section.field {
   width: 60vw;
   height: 90vh;
+  display: grid;
+  align-items: center;
 }
 main.game section.field > div {
   display: grid;
@@ -197,9 +211,10 @@ main.game section.field > div {
   display: flex;
   gap: 0.5vh;
   display: grid;
-  grid-template-rows: repeat(5, 16.8vh);
+  grid-template-rows: repeat(5, min-content);
   height: auto;
   padding: 2vh;
+  align-items: center;
 }
 main.game section.field > div > div.row {
   display: grid;
@@ -212,6 +227,7 @@ main.game section.field > div > div.row > div {
   border-radius: 10px;
   width: auto;
   background-color: gray;
+  min-width: min(40vw, 70px);
 }
 main.game section.field > div > div.row > div > img {
   max-width: 100%;
@@ -232,7 +248,45 @@ dialog > form > label {
   flex-direction: column;
   width: 30%;
 }
-dialog [data-dialog-name=rules-dialog] {
+dialog[data-dialog-name=rules-dialog] {
   width: 90vw;
-  height: 40vh;
+  height: 90vh;
+}
+dialog[data-dialog-name=rules-dialog] > div {
+  display: grid;
+  gap: 16px;
+  font-size: 20px;
+  width: 80%;
+  padding: 30px;
+}
+dialog[data-dialog-name=rules-dialog] > div img {
+  max-height: 300px;
+}
+dialog[data-dialog-name=rules-dialog] > div > div {
+  display: flex;
+  gap: 20px;
+}
+dialog[data-dialog-name=rules-dialog] > div > div > p {
+  padding-top: 10px;
+}
+dialog[data-dialog-name=rules-dialog] > div > ul {
+  list-style: unset;
+}
+
+main.rooms > div {
+  justify-self: flex-start;
+}
+main.rooms > div > span {
+  font-family: "Rubik Doodle Shadow", serif;
+  font-size: 50px;
+}
+main.rooms > ul.rooms-list {
+  width: 60vw;
+}
+main.rooms > ul.rooms-list > li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #597E8E;
+  padding: 20px;
 }/*# sourceMappingURL=index.css.map */

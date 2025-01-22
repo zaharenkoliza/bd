@@ -1,0 +1,21 @@
+main.rooms {
+	> div {
+		justify-self: flex-start;
+
+		> span {
+			font-family: "Rubik Doodle Shadow", serif;
+			font-size: 50px;
+		}
+	}
+
+	> ul.rooms-list {
+		width: 60vw;
+		> li {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-bottom: 2px solid $button;
+			padding: 20px;
+		}
+	}
+}

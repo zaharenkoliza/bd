@@ -2,9 +2,11 @@ $button: #597E8E;
 
 button {
 	background-color: $button;
-	border-radius: 60px;
+	// border-radius: 60px;
+	border-radius: 5px;
 	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
 	border: none;
 	padding: 8px 16px;
 	font-size: 16px;
+	cursor: pointer;
 }
