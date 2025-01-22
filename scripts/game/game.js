@@ -1,27 +1,20 @@
-import { addListenerForPlayer, addListenersForPlayers } from "./cards.js";
+import { cardOnField } from "./cardsOnField.js";
 import { winOrLose } from "./end.js";
-import { getTunnelTypeId, getActionTypeId, getActionItem } from "./getType.js";
+import { getTunnelTypeId, getActionTypeId } from "./getType.js";
+import { players } from "./players.js";
 import { startGame } from "./start.js";
 
-const cardOnField = async (data) => {
-	if (!data.cards_on_field) return;
+const urlParams = new URLSearchParams(window.location.search);
+export const idRoom = urlParams.get('room');
+export const timer = document.getElementById('timer');
 
-	for (const element of data.cards_on_field) {
-		const div = document.querySelector(`div[data-x*="${element['x']}"][data-y*="${element['y']}"]`);
-		
-		const typeId = await getTunnelTypeId(element['id_card']);
-		if (typeId.status == 'success'){
-			div.querySelector('img').src = `../img/tunnel_cards/${Number(typeId.message)}.png`;
-			if (element['rotation'] != 0) {
-				div.querySelector('img').classList.add('switch');
-			}
-			div.classList.remove('empty');
-		}
-		else {
-			console.log(typeId);
-		}
-	};
-}
+export const gameStatus = {
+	game_status: null,
+	timerInterval: null
+};
+
+export const span_game_status = document.getElementById('game_status');
+span_game_status.innerHTML = 'Ожидание игроков';
 
 let isProcessing = false;
 
@@ -72,83 +65,6 @@ const cardInHand = async (data) => {
 	});
 
 	isProcessing = false;
-}
-
-const playedCards = async ( played_cards, li ) => {
-	const allAttributes = li.getAttributeNames();
-
-	for (const attribute of allAttributes) {
-		if (attribute.startsWith('data-played-card-')) {
-			const cardId = attribute.replace('data-played-card-', '');
-			if (!played_cards.includes(Number(cardId))) {
-				li.removeAttribute(attribute);
-				const item = await getActionItem(cardId);
-				if (item.status == 'success') {
-					li.classList.remove(`${item.message}`);
-				}
-			}
-		}
-	}
-	if (played_cards[0] !== null) {
-		for (const card of played_cards) {
-			const targetAttribute = `data-played-card-${card}`;
-			const value = li.getAttribute(targetAttribute);
-			if (!value) {
-				const item = await getActionItem(card);
-				if (item.status == 'success') {
-					console.log(item);
-					li.setAttribute(targetAttribute, item.message);
-					li.classList.add(`${item.message}`);
-				}
-			}
-		}
-	}
-}
-
-const players = async (data) => {
-	if (!data.players) return;
-
-	const ul = document.querySelector('ul.players-list');
-	const curPlayer = data.current_move?.id_player;
-
-	const currentPlayers = new Map();
-	ul.querySelectorAll('li').forEach(li => {
-		const playerId = li.getAttribute('data-player-id');
-		currentPlayers.set(playerId, li);
-	});
-
-	for (const player of data.players) {
-		const { player_id, player_name, played_cards } = player;
-		let li = null;
-
-		if (currentPlayers.has(player_id.toString())) {
-			li = document.querySelector(`li[data-player-id="${player_id}"]`);
-			playedCards(played_cards, li);
-			currentPlayers.delete(player_id.toString());
-		} else {
-			li = document.createElement('li');
-			li.setAttribute('data-player-id', player_id);
-			li.textContent = player_name;
-			ul.appendChild(li);
-			addListenerForPlayer(li);
-			playedCards(played_cards, li);
-		}
-
-		if (player_id == curPlayer) {
-			li.classList.add('cur-move');
-		}
-		else {
-			li.classList.remove('cur-move');
-		}
-
-		if (player_id == data.you.id_player) {
-			li.innerHTML = data.you.name + ' (вы)';
-		}
-	};
-
-	currentPlayers.forEach((li, playerId) => {
-		ul.removeChild(li);
-	});
 }
 
 const updateTimer = (data) => {
@@ -212,26 +128,6 @@ function parseTimeToSeconds(timeString) {
 
 	return Math.round(totalSeconds);
 }
-
-
-const urlParams = new URLSearchParams(window.location.search);
-export const idRoom = urlParams.get('room');
-export const timer = document.getElementById('timer');
-
-// export let timerInterval = null;
-// export var game_status = null;
-
-export const gameStatus = {
-	game_status: null,
-	timerInterval: null,
-	players: []
-};
-
-const section = document.querySelector('section.field');
-const drop = document.querySelector('.drop-card');
-
-export const span_game_status = document.getElementById('game_status');
-span_game_status.innerHTML = 'Ожидание игроков';
 
 gameState();
 export let longPolling = setInterval(gameState, 5000);

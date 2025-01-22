@@ -27,7 +27,7 @@ export function initAuthForm() {
 			fetchDialog(data.status, data.message);
 			console.log(data.message);
 			if (data.message === 'success') {
-				window.location.href = './profile.php';  // Переход на страницу профиля
+				window.location.href = './rooms.php';  // Переход на страницу профиля
 			}
 		})
 		.catch(error => {

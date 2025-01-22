@@ -27,7 +27,7 @@ export function initRegisterForm() {
 			fetchDialog(data.status, data.message);
 			console.log(data.message);
 			if (data.message === 'success') {
-				window.location.href = './profile.php';
+				window.location.href = './rooms.php';
 			}
 			// else {
 			// 	alert(data.message);

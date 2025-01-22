@@ -25,7 +25,7 @@ button.addEventListener('click', (e) => {
 	.then(data => {
 		console.log(data.message);
 		if (data.status === 'success') {
-			window.location.href = './profile.php';
+			window.location.href = './rooms.php';
 		}
 	})
 	.catch(error => {
