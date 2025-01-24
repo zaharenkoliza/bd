@@ -3,7 +3,7 @@
 <html>
 	<?php @include './head.tpl'; ?>
 	
-	<main>
+	<main class="start">
 		<h1>Саботёр</h1>
 		<p>онлайн настольная игра</p>
 		<div>
@@ -14,19 +14,47 @@
 
 		<dialog data-dialog-name="auth-dialog">
 			<form id="loginForm" method="POST">
-				<h2>Войти</h2>
-				<input name="login" type="text">
-				<input name="password" type="text">
-				<button type="submit">Войти</button>
+				<h2>ВХОД</h2>
+				<div class="form-group">
+					<input name="login-auth" type="text" placeholder=" " required>
+					<label for="login-auth">
+						Введите логин
+					</label>
+				</div>
+				<div class="form-group">
+					<input name="password-auth" type="password" placeholder=" " required>
+					<label for="password-auth">
+						Введите пароль
+					</label>
+				</div>
+				<button type="submit">войти</button>
 			</form>
 		</dialog>
 
 		<dialog data-dialog-name="register-dialog">
 			<form id="registerForm" method="POST">
-				<h2>Регистрация</h2>
-				<input name="login" type="text">
-				<input name="password" type="text">
-				<button type="submit">Зарегистрироваться</button>
+				<h2>РЕГИСТРАЦИЯ</h2>
+				<div class='forms'>
+					<div class="form-group">
+						<input name="login" type="text" placeholder=" " required>
+						<label for="login">
+							Введите логин
+						</label>
+					</div>
+					<div class="form-group">
+						<input name="password" type="password"  placeholder=" " required>
+						<label for="password">
+							Введите пароль
+						</label>
+					</div>
+					<div class="form-group">
+						<input name="password-again" type="password" placeholder=" " required>
+						<label for="password-again">
+							Повторите пароль
+						</label>
+					</div>
+				</div>
+				<button type="submit">зарегистрироваться</button>
 			</form>
 		</dialog>
 		<?php 

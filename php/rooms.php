@@ -32,43 +32,49 @@ if (isset($response['status']) && $response['status'] === 'success') {
 	<?php @include './head.tpl'; ?>	
 	
 	<main class='rooms'>
-		<div>
-			<span>Саботёр</span>
-			<button data-show-dialog="rules-dialog">правила</button>
-			<button class='log-out'>выйти из аккаунта</button>
-			<h2> 
+		<div class='header'>
+			<h2>Добро пожаловать,
 				<?php 
 					echo $_SESSION['user']['login'];
 				?>
 			</h2>
+			<div>
+				<button data-show-dialog="rules-dialog">правила</button>
+				<button class='log-out'>выйти из аккаунта</button>
+			</div>
 		</div>
 
-		<label for="name">
-			Введите имя для игры
-		</label>
-		<input name="name" type="text">
+		<div class="form-group">
+			<input name="name" type="text" placeholder=" " required>
+			<label for="name">
+				Чтобы подключиться к игре, введите имя
+			</label>
+		</div>
 
-		<button data-show-dialog="create-room-dialog">создать игру</button>
-
-		<h2>Список игр, доступных для подключения</h2>
-		<?php
-			echo '<ul class="rooms-list">';
-			if ($_SESSION['rooms']){
-			foreach ($_SESSION['rooms'] as $room) {
-				echo '<li>';
-				echo '<span>№' . htmlspecialchars($room['id']) . '</span>';
-				echo '<span>' . htmlspecialchars($room['count']) . '</span>';
-				echo '<span>' . htmlspecialchars($room['time_for_move']) . '</span>';
-				echo '<span>' . htmlspecialchars($room['amount_of_players']) . '</span>';
-				echo '<button class="join-room" data-id-room="' . $room['id'] . '">войти в игру</button>';
-				echo '</li>';
+		<div class="games">
+			<h2>Список игр, доступных для подключения</h2>
+			<?php
+				echo '<ul class="rooms-list">';
+				if ($_SESSION['rooms']){
+				foreach ($_SESSION['rooms'] as $room) {
+					echo '<li>';
+					echo '<span>№' . htmlspecialchars($room['id']) . '</span>';
+					echo '<span>' . htmlspecialchars($room['amount_of_players'] - $room['count']) . ' игроков ожидается</span>';
+					echo '<span>' . htmlspecialchars($room['time_for_move']) . ' с на ход</span>';
+					// echo '<span>' . htmlspecialchars($room['amount_of_players']) . '</span>';
+					echo '<button class="join-room" data-id-room="' . $room['id'] . '">войти в игру</button>';
+					echo '</li>';
+				}
 			}
-		}
-		else {
-			echo '<span>Нет доступных комнат</span>';
-		}
-			echo '</ul>';
+			else {
+				echo '<span>Нет доступных комнат</span>';
+			}
+				echo '</ul>';?>
 
+			<button data-show-dialog="create-room-dialog">создать игру</button>
+		</div>
+
+		<?php
 		include './rules.tpl'; 
 		include './alertDialog.tpl' ;
 		include './createRoomDialog.tpl';

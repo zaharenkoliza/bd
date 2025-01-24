@@ -47,18 +47,23 @@ $idPlayer = $_SESSION['id_player' . $idRoom];
 	
 	<main class='game'>
 		<section class='aside'>
-			<div>
+			<div class="info">
 				<h4 id='game_status'></h4>
-				<button data-show-dialog="rules-dialog">правила</button>
-				<button id="quit-button" data-id-room="<?php echo $idRoom; ?>">выйти из игры</button>
+				<div>
+					<button data-show-dialog="rules-dialog">правила</button>
+					<button id="quit-button" data-id-room="<?php echo $idRoom; ?>">выйти из игры</button>
+				</div>
 				<span id='role'></span>
-				<div id='timer'></div>
+				<div class='timer'>
+					<span>Время до конца хода:</span>
+					<div id='timer'></div>
+				</div>
 			</div>
 
 			<div class='players'>
 				<h3>Игроки</h3>
 				<ul class="players-list">
-					<li data-player-id="<?php echo $idPlayer ?>">
+					<li id="me" data-player-id="<?php echo $idPlayer ?>">
 						<?php 
 						foreach ($_SESSION['players' . $idRoom] as $player) {
 							if ($player['login_user'] === $_SESSION['user']['login']) {
@@ -79,7 +84,7 @@ $idPlayer = $_SESSION['id_player' . $idRoom];
 		<section class='field waiting'>
 			<div>
 			<?php
-				for ($y = 5; $y > 0; $y--) {
+				for ($y = 6; $y > -1; $y--) {
 					echo '<div class="row">';
 					for ($x = 1; $x < 10; $x++) {
 						echo '<div class="card empty" data-x=' . $x . ' data-y=' . $y . '>';

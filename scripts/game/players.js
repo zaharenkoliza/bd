@@ -1,3 +1,6 @@
+import { addListenerForPlayer } from "./cards.js";
+import { getActionItem } from "./getType.js";
+
 const playedCards = async ( played_cards, li ) => {
 	const allAttributes = li.getAttributeNames();
 

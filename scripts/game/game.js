@@ -69,7 +69,7 @@ const cardInHand = async (data) => {
 
 const updateTimer = (data) => {
 	if (!data.current_move?.end_time) return;
-	console.log(data);
+	//console.log(data);
 
 	timer.innerHTML = parseTimeToSeconds(data.current_move.end_time);
 }
@@ -79,7 +79,7 @@ export function gameStateNoFetch( data ) {
 	cardInHand(data);
 	players(data);
 	updateTimer(data);
-	console.log(data);
+	//console.log(data);
 	if (data.game_status != gameStatus.game_status && data.game_status =='process') {
 		startGame(data);
 	}
@@ -103,10 +103,10 @@ export function gameState() {
 		cardInHand(data.info);
 		players(data.info);
 		updateTimer(data.info);
-		console.log(data);
-		console.log(gameStatus.game_status);
+		//console.log(data);
+		//console.log(gameStatus.game_status);
 		if (data.info.game_status != gameStatus.game_status && data.info.game_status =='process') {
-			console.log(gameStatus.game_status);
+			//console.log(gameStatus.game_status);
 			startGame(data.info);
 		}
 		if (data.info.game_status != gameStatus.game_status && (data.info.game_status =='win' || data.info.game_status =='lose')) {

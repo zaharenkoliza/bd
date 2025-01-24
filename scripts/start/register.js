@@ -9,6 +9,12 @@ export function initRegisterForm() {
 		e.preventDefault();
 		const login = form.querySelector('input[name=login]').value;
     	const password = form.querySelector('input[name=password]').value;
+		const password2 = form.querySelector('input[name=password-again]').value;
+
+		if (password != password2) {
+			alert('Пароли не совпадают');
+			return;
+		}
 
 		fetch('../api/register.php', {
 			method: 'POST',

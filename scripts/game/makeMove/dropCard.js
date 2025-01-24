@@ -1,4 +1,4 @@
-import { gameStateNoFetch } from "../game";
+import { gameStateNoFetch } from "../game.js";
 
 export const dropCard = (cardId) => {
 	fetch('../api/drop_card.php', {

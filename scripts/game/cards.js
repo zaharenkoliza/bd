@@ -7,7 +7,7 @@ const cards = document.querySelector('.cards-hand');
 const gameField = document.querySelector('section.field');
 const drop = document.querySelector('.drop-card');
 
-gameField.querySelectorAll('div').forEach(place => {
+gameField.querySelectorAll('div.card').forEach(place => {
 	place.addEventListener('dragover', (e) => {
 		e.preventDefault();
 		place.classList.add('drag-on');
@@ -97,4 +97,7 @@ switchButton.addEventListener('click', () => {
 	rot = rot == 0 ? 180 : 0;
 	ul.classList.toggle('switch');
 })
+
+const me = document.querySelector('li#me');
+addListenerForPlayer(me);
 

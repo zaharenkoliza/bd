@@ -21,7 +21,7 @@ export const startGame = ( data ) => {
 	document.querySelector('ul.cards-hand')?.classList.remove('waiting');
 	document.querySelector('div.drop-card')?.classList.remove('waiting');
 	document.querySelector('button#switch-cards')?.classList.remove('waiting');
-	document.getElementById('role').innerHTML = data.you.role === 'dwarf' ? 'Гном-золотоискатель' : 'Гном-вредитель';
+	document.getElementById('role').innerHTML = data.you.role === 'dwarf' ? 'Вы гном-золотоискатель' : 'Вы гном-вредитель';
 
 	for (let i = 1; i <= 5; i+=2) {
 		document.querySelector(`div[data-x="${9}"][data-y="${i}"]`).querySelector('img').src = `../img/cover.png`;

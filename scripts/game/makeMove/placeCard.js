@@ -1,7 +1,10 @@
 import { gameStateNoFetch } from "../game.js";
 
 export const placeCard = (card, x, y, rot) => {	
-	if (!card || !x || !y || !rot) return;
+	console.log(card, x, y, rot);
+	if (!card || !x || !y) return;
+
+	console.log(card, x, y, rot);
 
 	fetch('../api/check_and_place_card.php', {
 		method: 'POST',

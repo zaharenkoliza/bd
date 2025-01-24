@@ -1,3 +1,24 @@
+// @font-face
+// {
+// 	font-family: 'Circe Light';
+// 	src: url('../fonts/circe_light.woff2') format('woff2'),
+// 	url('../fonts/circe_light.woff') format('woff');
+// }
+
+// @font-face
+// {
+// 	font-family: 'Circe';
+// 	src: url('../fonts/circe.woff2') format('woff2'),
+// 	url('../fonts/circe.woff') format('woff');
+// }
+
+@font-face
+{
+	font-family: 'FiveYearsLater';
+	src: url('../fonts/FiveYearsLater.woff2') format('woff2'),
+	url('../fonts/FiveYearsLater.woff') format('woff');
+}
+
 h1 {
 	font-family: "Rubik Doodle Shadow", serif;
 	font-size: 111px;
@@ -9,4 +30,14 @@ h2 {
 
 body {
 	font-family: "Advent Pro", serif;
+}
+
+h3 {
+	font-size: 30px;
+	font-family: 'FiveYearsLater';
+}
+
+h4 {
+	font-size: 30px;
+	font-family: 'FiveYearsLater';
 }

@@ -9,8 +9,8 @@ export function initAuthForm() {
 
 		event.preventDefault();
 
-		const login = form.querySelector('input[name=login]').value;
-		const password = form.querySelector('input[name=password]').value;
+		const login = form.querySelector('input[name=login-auth]').value;
+		const password = form.querySelector('input[name=password-auth]').value;
 
 		fetch('../api/auth.php', {
 			method: 'POST',
@@ -24,10 +24,12 @@ export function initAuthForm() {
 			return response.json();
 		})
 		.then(data => {
-			fetchDialog(data.status, data.message);
 			console.log(data.message);
 			if (data.message === 'success') {
-				window.location.href = './rooms.php';  // Переход на страницу профиля
+				window.location.href = './rooms.php';
+			}
+			else {
+				fetchDialog(data.status, data.message);
 			}
 		})
 		.catch(error => {

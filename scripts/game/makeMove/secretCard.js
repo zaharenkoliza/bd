@@ -20,11 +20,12 @@ export const secretCard = async (x, y, cardId) => {
 			alert(data.message);
 		}
 		else {
+			console.log(data);
 			const dialog = document.querySelector('dialog[data-dialog-name="secret-dialog"]');
-			dialog.querySelector('img').src = `../img/tunnel_cards/${data.secret_card.id_type_card}.png`;
+			dialog.querySelector('img').src = `../img/tunnel_cards/${data.info.secret_card.id_type_card}.png`;
 			Dialog.openDialog('secret-dialog');
 			console.log(data.info.secret_card);
-			gameStateNoFetch(data.info);
+			gameStateNoFetch(data.info.game);
 		}
 		console.log(data);
 	} catch (error) {
