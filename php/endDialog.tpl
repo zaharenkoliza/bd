@@ -1,4 +1,5 @@
 <dialog data-dialog-name="end-dialog">
+<button class="close"></button>
 <div>
 	<h2>Игра окончена</h2>
 	<h3 class="win hidden">Поздравляем! Вы выиграли!</h3>

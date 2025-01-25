@@ -1,8 +1,22 @@
 dialog {
-	width: 40vw;
+	width: fit-content;
 	border: none;
 	border-radius: 24px;
 	clip-path: $squircle-24;
+	position: relative;
+
+	button.close {
+		position: absolute;
+		background-image: url('../img/close.svg');
+		background-color: white;
+		background-size: contain;
+		width: 30px;
+		height: 30px;
+		padding: 0;
+		right: 20px;
+		top: 20px;
+		box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);
+	}
 
 	> form {
 		> label {
@@ -15,6 +29,12 @@ dialog {
 	&[data-dialog-name='rules-dialog'] {
 		width: 80vw;
 		height: 90vh;
+
+		button.close {
+			right: calc(10vw + 20px);
+			top: calc(5vh + 20px);
+			position: fixed;
+		}
 
 		> div {
 			display: grid;
@@ -38,12 +58,22 @@ dialog {
 			> ul{
 				list-style: unset;
 			}
+
+			h2 {
+				margin-top: 20px;
+			}
+
+			h2:first-child {
+				margin-top: 0px;
+			}
 		}
 	}
 
 	&[data-dialog-name='auth-dialog'], 
-	&[data-dialog-name='register-dialog'] {
+	&[data-dialog-name='register-dialog'], 
+	&[data-dialog-name='create-room-dialog'] {
 		padding: 40px;
+		padding-top: 60px;
 
 		> form {
 			display: flex;
@@ -58,7 +88,7 @@ dialog {
 
 			.forms {
 				display: grid;
-				gap: 5px;
+				gap: 15px;
 			}
 
 			.form-group {
@@ -101,9 +131,15 @@ dialog {
 		}
 	}
 
+	&[data-dialog-name='create-room-dialog']{
+		.form-group {
+			margin: 0 !important;
+		}
+	}
+
 	&[data-dialog-name='end-dialog'], 
 	&[data-dialog-name='alert-dialog'] {
-		padding: 40px;
+		padding: 50px;
 
 		> div {
 			display: grid;
