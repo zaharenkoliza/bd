@@ -11,7 +11,7 @@ const playedCards = async ( played_cards, li ) => {
 				li.removeAttribute(attribute);
 				const item = await getActionItem(cardId);
 				if (item.status == 'success') {
-					li.classList.remove(`${item.message}`);
+					li.querySelector(`.extra-icon.${item.message}`)?.remove();
 				}
 			}
 		}
@@ -25,7 +25,11 @@ const playedCards = async ( played_cards, li ) => {
 				if (item.status == 'success') {
 					console.log(item);
 					li.setAttribute(targetAttribute, item.message);
-					li.classList.add(`${item.message}`);
+					// li.classList.add(`${item.message}`);
+					const div = document.createElement('div');
+					div.classList.add('extra-icon');
+					div.classList.add(`${item.message}`);
+					li.appendChild(div);
 				}
 			}
 		}
@@ -69,7 +73,12 @@ export const players = async (data) => {
 		}
 
 		if (player_id == data.you.id_player) {
-			li.innerHTML = data.you.name + ' (вы)';
+			if (!li.querySelector('span')) {
+				li.innerHTML = '';
+				const span = document.createElement('span');
+				span.textContent = data.you.name + ' (вы)';
+				li.appendChild(span);
+			}
 		}
 	};
 

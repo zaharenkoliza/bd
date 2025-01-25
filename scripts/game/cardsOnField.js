@@ -8,9 +8,9 @@ export const cardOnField = async (data) => {
 		
 		const typeId = await getTunnelTypeId(element['id_card']);
 		if (typeId.status == 'success'){
-			div.querySelector('img').src = `../img/tunnel_cards/${Number(typeId.message)}.png`;
+			div.style.backgroundImage = `url('../img/tunnel_cards/${Number(typeId.message)}.png')`;
 			if (element['rotation'] != 0) {
-				div.querySelector('img').classList.add('switch');
+				div.classList.add('switch');
 			}
 			div.classList.remove('empty');
 		}

@@ -34,6 +34,7 @@ const cardInHand = async (data) => {
 		const cardId = li.getAttribute('data-card-id');
 		currentCards.set(cardId, li);
 	});
+	const drop = document.querySelector('.drop-card');
 
 	for (const cardId of data.cards_in_hand) {
 		if (currentCards.has(cardId.toString())) {
@@ -41,19 +42,23 @@ const cardInHand = async (data) => {
 		} else {
 			const li = document.createElement('li');
 			li.setAttribute('data-card-id', cardId);
-			const img = document.createElement('img');
 			li.addEventListener('dragstart', (e) => {
+				console.log('here');
 				e.dataTransfer.setData('cardId', cardId);
+				drop.classList.add('drag');
 			});
-			li.appendChild(img);
+			li.addEventListener('dragend', (e) => {
+				drop.classList.remove('drag');
+			});
+			li.setAttribute('draggable', true);
 			
 			let typeId = await getActionTypeId(cardId);
 			if (typeId.status == 'success') {
-				img.src = `../img/action_cards/${Number(typeId.message)}.png`;
+				li.style.backgroundImage = `url('../img/action_cards/${Number(typeId.message)}.png')`;
 			} else {
 				typeId = await getTunnelTypeId(cardId);
 				if (typeId.status == 'success') {
-					img.src = `../img/tunnel_cards/${typeId.message}.png`;
+					li.style.backgroundImage = `url('../img/tunnel_cards/${typeId.message}.png')`;
 				}
 			}
 			hand.appendChild(li);
@@ -64,7 +69,18 @@ const cardInHand = async (data) => {
 		hand.removeChild(li);
 	});
 
+	hand.querySelectorAll('li').forEach(li => {
+		li.removeEventListener('click', handleCardClick);
+		li.addEventListener('click', handleCardClick);
+	});
+
 	isProcessing = false;
+}
+
+function handleCardClick(event) {
+	const hand = document.querySelector('ul.cards-hand');
+	hand.querySelectorAll('li').forEach((c) => c.classList.remove('active'));
+	event.currentTarget.classList.toggle('active');
 }
 
 const updateTimer = (data) => {

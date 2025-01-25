@@ -24,6 +24,7 @@ buttons.forEach(button => {
 				}
 			})
 			.catch(error => {
+				console.error(error);
 			});
 		}
 	});

@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<?php @include './head.tpl'; ?>
+	<?php @include './media.tpl'; ?>	
 	
 	<main class="start">
 		<h1>Саботёр</h1>
@@ -13,6 +14,7 @@
 		</div>
 
 		<dialog data-dialog-name="auth-dialog">
+			<button class="close"></button>
 			<form id="loginForm" method="POST">
 				<h2>ВХОД</h2>
 				<div class="form-group">
@@ -32,6 +34,7 @@
 		</dialog>
 
 		<dialog data-dialog-name="register-dialog">
+			<button class="close"></button>
 			<form id="registerForm" method="POST">
 				<h2>РЕГИСТРАЦИЯ</h2>
 				<div class='forms'>

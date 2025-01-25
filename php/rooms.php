@@ -30,6 +30,7 @@ if (isset($response['status']) && $response['status'] === 'success') {
 <!DOCTYPE html>
 <html>
 	<?php @include './head.tpl'; ?>	
+	<?php @include './media.tpl'; ?>	
 	
 	<main class='rooms'>
 		<div class='header'>
@@ -40,7 +41,7 @@ if (isset($response['status']) && $response['status'] === 'success') {
 			</h2>
 			<div>
 				<button data-show-dialog="rules-dialog">правила</button>
-				<button class='log-out'>выйти из аккаунта</button>
+				<button onclick="window.location.href = './profile.php';">в профиль</button>
 			</div>
 		</div>
 
@@ -52,7 +53,7 @@ if (isset($response['status']) && $response['status'] === 'success') {
 		</div>
 
 		<div class="games">
-			<h2>Список игр, доступных для подключения</h2>
+			<h3>Список игр, доступных для подключения</h3>
 			<?php
 				echo '<ul class="rooms-list">';
 				if ($_SESSION['rooms']){
@@ -67,7 +68,7 @@ if (isset($response['status']) && $response['status'] === 'success') {
 				}
 			}
 			else {
-				echo '<span>Нет доступных комнат</span>';
+				echo '<p>Нет доступных комнат</p>';
 			}
 				echo '</ul>';?>
 
