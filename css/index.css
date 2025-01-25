@@ -1,3 +1,4 @@
+@charset "UTF-8";
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -55,6 +56,7 @@ html > body {
   display: grid;
   flex-direction: column;
   align-items: center;
+  overflow-y: hidden;
 }
 html > body main {
   background-color: rgba(255, 255, 255, 0.95);
@@ -87,6 +89,44 @@ html > body main {
   display: none;
 }
 
+#orientation-warning {
+  display: none; /* Скрываем заглушку по умолчанию */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 9999;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#orientation-warning p {
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  main {
+    display: none;
+  }
+  #orientation-warning {
+    display: flex;
+  }
+}
+@font-face {
+  font-family: "Circe Light";
+  src: url("../fonts/circe_light.woff2") format("woff2"), url("../fonts/circe_light.woff") format("woff");
+}
+@font-face {
+  font-family: "Circe";
+  src: url("../fonts/circe.woff2") format("woff2"), url("../fonts/circe.woff") format("woff");
+}
 @font-face {
   font-family: "FiveYearsLater";
   src: url("../fonts/FiveYearsLater.woff2") format("woff2"), url("../fonts/FiveYearsLater.woff") format("woff");
@@ -98,6 +138,7 @@ h1 {
 
 h2 {
   font-size: 40px;
+  font-family: "FiveYearsLater";
 }
 
 body {
@@ -117,86 +158,208 @@ h4 {
 button {
   background-color: #597E8E;
   border-radius: 5px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  box-shadow: -5px 3px 7px rgba(0, 0, 0, 0.5);
   border: none;
   padding: 8px 16px;
   font-size: 16px;
   cursor: pointer;
   color: rgb(40, 35, 35);
-  font-weight: 600;
-  transition: transform ease 0.3s;
+  transition: background-color ease 0.3s;
+  font-family: "Circe";
 }
 
 button:hover {
-  transform: scale(1.05);
+  background-color: #537483;
+}
+
+body:has(main.game) {
+  background-image: none;
 }
 
 main.game {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 100vh;
+  width: 100vw;
+  -webkit-clip-path: none;
+          clip-path: none;
+  border-radius: 0;
 }
 main.game section.aside {
-  display: flex;
+  background-image: url("../img/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 50vw;
+  padding: 40px;
+  border-radius: 0 24px 0 0;
+  -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, calc(100% - 32.4px) 0px, calc(100% - 29.9px) 0px, calc(100% - 27.5px) 0.1px, calc(100% - 25.1px) 0.3px, calc(100% - 22.9px) 0.5px, calc(100% - 20.9px) 0.8px, calc(100% - 18.9px) 1.2px, calc(100% - 17px) 1.6px, calc(100% - 15.3px) 2.1px, calc(100% - 13.6px) 2.7px, calc(100% - 12.1px) 3.4px, calc(100% - 10.7px) 4.2px, calc(100% - 9.3px) 5px, calc(100% - 8.1px) 5.9px, calc(100% - 7px) 7px, calc(100% - 5.9px) 8.1px, calc(100% - 5px) 9.3px, calc(100% - 4.2px) 10.7px, calc(100% - 3.4px) 12.1px, calc(100% - 2.7px) 13.6px, calc(100% - 2.1px) 15.3px, calc(100% - 1.6px) 17px, calc(100% - 1.2px) 18.9px, calc(100% - 0.8px) 20.9px, calc(100% - 0.5px) 22.9px, calc(100% - 0.3px) 25.1px, calc(100% - 0.1px) 27.5px, calc(100% - 0px) 29.9px, calc(100% - 0px) 32.4px, calc(100% - 0px) 35.1px, calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px));
+          clip-path: polygon(0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, calc(100% - 32.4px) 0px, calc(100% - 29.9px) 0px, calc(100% - 27.5px) 0.1px, calc(100% - 25.1px) 0.3px, calc(100% - 22.9px) 0.5px, calc(100% - 20.9px) 0.8px, calc(100% - 18.9px) 1.2px, calc(100% - 17px) 1.6px, calc(100% - 15.3px) 2.1px, calc(100% - 13.6px) 2.7px, calc(100% - 12.1px) 3.4px, calc(100% - 10.7px) 4.2px, calc(100% - 9.3px) 5px, calc(100% - 8.1px) 5.9px, calc(100% - 7px) 7px, calc(100% - 5.9px) 8.1px, calc(100% - 5px) 9.3px, calc(100% - 4.2px) 10.7px, calc(100% - 3.4px) 12.1px, calc(100% - 2.7px) 13.6px, calc(100% - 2.1px) 15.3px, calc(100% - 1.6px) 17px, calc(100% - 1.2px) 18.9px, calc(100% - 0.8px) 20.9px, calc(100% - 0.5px) 22.9px, calc(100% - 0.3px) 25.1px, calc(100% - 0.1px) 27.5px, calc(100% - 0px) 29.9px, calc(100% - 0px) 32.4px, calc(100% - 0px) 35.1px, calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), calc(100% - 0px) calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px), 0px calc(100% - 0px));
+}
+main.game section.aside > div {
+  display: grid;
+  grid-template-rows: 1fr 1fr 2fr;
+  grid-template-columns: 100%;
   flex-direction: column;
-  padding: 20px;
-  height: 100%;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.95);
+  height: 100vh;
+  -webkit-clip-path: polygon(0px 46.3px, 0px 43.8px, 0px 41.4px, 0px 39.1px, 0px 36.9px, 0px 34.7px, 0.1px 32.7px, 0.2px 30.7px, 0.3px 28.8px, 0.4px 26.9px, 0.5px 25.2px, 0.7px 23.5px, 0.9px 21.9px, 1.1px 20.4px, 1.4px 18.9px, 1.7px 17.5px, 2px 16.2px, 2.4px 14.9px, 2.8px 13.7px, 3.3px 12.6px, 3.8px 11.5px, 4.3px 10.5px, 4.9px 9.5px, 5.6px 8.6px, 6.2px 7.8px, 7px 7px, 7.8px 6.2px, 8.6px 5.6px, 9.5px 4.9px, 10.5px 4.3px, 11.5px 3.8px, 12.6px 3.3px, 13.7px 2.8px, 14.9px 2.4px, 16.2px 2px, 17.5px 1.7px, 18.9px 1.4px, 20.4px 1.1px, 21.9px 0.9px, 23.5px 0.7px, 25.2px 0.5px, 26.9px 0.4px, 28.8px 0.3px, 30.7px 0.2px, 32.7px 0.1px, 34.7px 0px, 36.9px 0px, 39.1px 0px, 41.4px 0px, 43.8px 0px, calc(100% - 43.8px) 0px, calc(100% - 41.4px) 0px, calc(100% - 39.1px) 0px, calc(100% - 36.9px) 0px, calc(100% - 34.7px) 0px, calc(100% - 32.7px) 0.1px, calc(100% - 30.7px) 0.2px, calc(100% - 28.8px) 0.3px, calc(100% - 26.9px) 0.4px, calc(100% - 25.2px) 0.5px, calc(100% - 23.5px) 0.7px, calc(100% - 21.9px) 0.9px, calc(100% - 20.4px) 1.1px, calc(100% - 18.9px) 1.4px, calc(100% - 17.5px) 1.7px, calc(100% - 16.2px) 2px, calc(100% - 14.9px) 2.4px, calc(100% - 13.7px) 2.8px, calc(100% - 12.6px) 3.3px, calc(100% - 11.5px) 3.8px, calc(100% - 10.5px) 4.3px, calc(100% - 9.5px) 4.9px, calc(100% - 8.6px) 5.6px, calc(100% - 7.8px) 6.2px, calc(100% - 7px) 7px, calc(100% - 6.2px) 7.8px, calc(100% - 5.6px) 8.6px, calc(100% - 4.9px) 9.5px, calc(100% - 4.3px) 10.5px, calc(100% - 3.8px) 11.5px, calc(100% - 3.3px) 12.6px, calc(100% - 2.8px) 13.7px, calc(100% - 2.4px) 14.9px, calc(100% - 2px) 16.2px, calc(100% - 1.7px) 17.5px, calc(100% - 1.4px) 18.9px, calc(100% - 1.1px) 20.4px, calc(100% - 0.9px) 21.9px, calc(100% - 0.7px) 23.5px, calc(100% - 0.5px) 25.2px, calc(100% - 0.4px) 26.9px, calc(100% - 0.3px) 28.8px, calc(100% - 0.2px) 30.7px, calc(100% - 0.1px) 32.7px, calc(100% - 0px) 34.7px, calc(100% - 0px) 36.9px, calc(100% - 0px) 39.1px, calc(100% - 0px) 41.4px, calc(100% - 0px) 43.8px, calc(100% - 0px) 46.3px, calc(100% - 0px) calc(100% - 46.3px), calc(100% - 0px) calc(100% - 43.8px), calc(100% - 0px) calc(100% - 41.4px), calc(100% - 0px) calc(100% - 39.1px), calc(100% - 0px) calc(100% - 36.9px), calc(100% - 0px) calc(100% - 34.7px), calc(100% - 0.1px) calc(100% - 32.7px), calc(100% - 0.2px) calc(100% - 30.7px), calc(100% - 0.3px) calc(100% - 28.8px), calc(100% - 0.4px) calc(100% - 26.9px), calc(100% - 0.5px) calc(100% - 25.2px), calc(100% - 0.7px) calc(100% - 23.5px), calc(100% - 0.9px) calc(100% - 21.9px), calc(100% - 1.1px) calc(100% - 20.4px), calc(100% - 1.4px) calc(100% - 18.9px), calc(100% - 1.7px) calc(100% - 17.5px), calc(100% - 2px) calc(100% - 16.2px), calc(100% - 2.4px) calc(100% - 14.9px), calc(100% - 2.8px) calc(100% - 13.7px), calc(100% - 3.3px) calc(100% - 12.6px), calc(100% - 3.8px) calc(100% - 11.5px), calc(100% - 4.3px) calc(100% - 10.5px), calc(100% - 4.9px) calc(100% - 9.5px), calc(100% - 5.6px) calc(100% - 8.6px), calc(100% - 6.2px) calc(100% - 7.8px), calc(100% - 7px) calc(100% - 7px), calc(100% - 7.8px) calc(100% - 6.2px), calc(100% - 8.6px) calc(100% - 5.6px), calc(100% - 9.5px) calc(100% - 4.9px), calc(100% - 10.5px) calc(100% - 4.3px), calc(100% - 11.5px) calc(100% - 3.8px), calc(100% - 12.6px) calc(100% - 3.3px), calc(100% - 13.7px) calc(100% - 2.8px), calc(100% - 14.9px) calc(100% - 2.4px), calc(100% - 16.2px) calc(100% - 2px), calc(100% - 17.5px) calc(100% - 1.7px), calc(100% - 18.9px) calc(100% - 1.4px), calc(100% - 20.4px) calc(100% - 1.1px), calc(100% - 21.9px) calc(100% - 0.9px), calc(100% - 23.5px) calc(100% - 0.7px), calc(100% - 25.2px) calc(100% - 0.5px), calc(100% - 26.9px) calc(100% - 0.4px), calc(100% - 28.8px) calc(100% - 0.3px), calc(100% - 30.7px) calc(100% - 0.2px), calc(100% - 32.7px) calc(100% - 0.1px), calc(100% - 34.7px) calc(100% - 0px), calc(100% - 36.9px) calc(100% - 0px), calc(100% - 39.1px) calc(100% - 0px), calc(100% - 41.4px) calc(100% - 0px), calc(100% - 43.8px) calc(100% - 0px), 43.8px calc(100% - 0px), 41.4px calc(100% - 0px), 39.1px calc(100% - 0px), 36.9px calc(100% - 0px), 34.7px calc(100% - 0px), 32.7px calc(100% - 0.1px), 30.7px calc(100% - 0.2px), 28.8px calc(100% - 0.3px), 26.9px calc(100% - 0.4px), 25.2px calc(100% - 0.5px), 23.5px calc(100% - 0.7px), 21.9px calc(100% - 0.9px), 20.4px calc(100% - 1.1px), 18.9px calc(100% - 1.4px), 17.5px calc(100% - 1.7px), 16.2px calc(100% - 2px), 14.9px calc(100% - 2.4px), 13.7px calc(100% - 2.8px), 12.6px calc(100% - 3.3px), 11.5px calc(100% - 3.8px), 10.5px calc(100% - 4.3px), 9.5px calc(100% - 4.9px), 8.6px calc(100% - 5.6px), 7.8px calc(100% - 6.2px), 7px calc(100% - 7px), 6.2px calc(100% - 7.8px), 5.6px calc(100% - 8.6px), 4.9px calc(100% - 9.5px), 4.3px calc(100% - 10.5px), 3.8px calc(100% - 11.5px), 3.3px calc(100% - 12.6px), 2.8px calc(100% - 13.7px), 2.4px calc(100% - 14.9px), 2px calc(100% - 16.2px), 1.7px calc(100% - 17.5px), 1.4px calc(100% - 18.9px), 1.1px calc(100% - 20.4px), 0.9px calc(100% - 21.9px), 0.7px calc(100% - 23.5px), 0.5px calc(100% - 25.2px), 0.4px calc(100% - 26.9px), 0.3px calc(100% - 28.8px), 0.2px calc(100% - 30.7px), 0.1px calc(100% - 32.7px), 0px calc(100% - 34.7px), 0px calc(100% - 36.9px), 0px calc(100% - 39.1px), 0px calc(100% - 41.4px), 0px calc(100% - 43.8px), 0px calc(100% - 46.3px));
+          clip-path: polygon(0px 46.3px, 0px 43.8px, 0px 41.4px, 0px 39.1px, 0px 36.9px, 0px 34.7px, 0.1px 32.7px, 0.2px 30.7px, 0.3px 28.8px, 0.4px 26.9px, 0.5px 25.2px, 0.7px 23.5px, 0.9px 21.9px, 1.1px 20.4px, 1.4px 18.9px, 1.7px 17.5px, 2px 16.2px, 2.4px 14.9px, 2.8px 13.7px, 3.3px 12.6px, 3.8px 11.5px, 4.3px 10.5px, 4.9px 9.5px, 5.6px 8.6px, 6.2px 7.8px, 7px 7px, 7.8px 6.2px, 8.6px 5.6px, 9.5px 4.9px, 10.5px 4.3px, 11.5px 3.8px, 12.6px 3.3px, 13.7px 2.8px, 14.9px 2.4px, 16.2px 2px, 17.5px 1.7px, 18.9px 1.4px, 20.4px 1.1px, 21.9px 0.9px, 23.5px 0.7px, 25.2px 0.5px, 26.9px 0.4px, 28.8px 0.3px, 30.7px 0.2px, 32.7px 0.1px, 34.7px 0px, 36.9px 0px, 39.1px 0px, 41.4px 0px, 43.8px 0px, calc(100% - 43.8px) 0px, calc(100% - 41.4px) 0px, calc(100% - 39.1px) 0px, calc(100% - 36.9px) 0px, calc(100% - 34.7px) 0px, calc(100% - 32.7px) 0.1px, calc(100% - 30.7px) 0.2px, calc(100% - 28.8px) 0.3px, calc(100% - 26.9px) 0.4px, calc(100% - 25.2px) 0.5px, calc(100% - 23.5px) 0.7px, calc(100% - 21.9px) 0.9px, calc(100% - 20.4px) 1.1px, calc(100% - 18.9px) 1.4px, calc(100% - 17.5px) 1.7px, calc(100% - 16.2px) 2px, calc(100% - 14.9px) 2.4px, calc(100% - 13.7px) 2.8px, calc(100% - 12.6px) 3.3px, calc(100% - 11.5px) 3.8px, calc(100% - 10.5px) 4.3px, calc(100% - 9.5px) 4.9px, calc(100% - 8.6px) 5.6px, calc(100% - 7.8px) 6.2px, calc(100% - 7px) 7px, calc(100% - 6.2px) 7.8px, calc(100% - 5.6px) 8.6px, calc(100% - 4.9px) 9.5px, calc(100% - 4.3px) 10.5px, calc(100% - 3.8px) 11.5px, calc(100% - 3.3px) 12.6px, calc(100% - 2.8px) 13.7px, calc(100% - 2.4px) 14.9px, calc(100% - 2px) 16.2px, calc(100% - 1.7px) 17.5px, calc(100% - 1.4px) 18.9px, calc(100% - 1.1px) 20.4px, calc(100% - 0.9px) 21.9px, calc(100% - 0.7px) 23.5px, calc(100% - 0.5px) 25.2px, calc(100% - 0.4px) 26.9px, calc(100% - 0.3px) 28.8px, calc(100% - 0.2px) 30.7px, calc(100% - 0.1px) 32.7px, calc(100% - 0px) 34.7px, calc(100% - 0px) 36.9px, calc(100% - 0px) 39.1px, calc(100% - 0px) 41.4px, calc(100% - 0px) 43.8px, calc(100% - 0px) 46.3px, calc(100% - 0px) calc(100% - 46.3px), calc(100% - 0px) calc(100% - 43.8px), calc(100% - 0px) calc(100% - 41.4px), calc(100% - 0px) calc(100% - 39.1px), calc(100% - 0px) calc(100% - 36.9px), calc(100% - 0px) calc(100% - 34.7px), calc(100% - 0.1px) calc(100% - 32.7px), calc(100% - 0.2px) calc(100% - 30.7px), calc(100% - 0.3px) calc(100% - 28.8px), calc(100% - 0.4px) calc(100% - 26.9px), calc(100% - 0.5px) calc(100% - 25.2px), calc(100% - 0.7px) calc(100% - 23.5px), calc(100% - 0.9px) calc(100% - 21.9px), calc(100% - 1.1px) calc(100% - 20.4px), calc(100% - 1.4px) calc(100% - 18.9px), calc(100% - 1.7px) calc(100% - 17.5px), calc(100% - 2px) calc(100% - 16.2px), calc(100% - 2.4px) calc(100% - 14.9px), calc(100% - 2.8px) calc(100% - 13.7px), calc(100% - 3.3px) calc(100% - 12.6px), calc(100% - 3.8px) calc(100% - 11.5px), calc(100% - 4.3px) calc(100% - 10.5px), calc(100% - 4.9px) calc(100% - 9.5px), calc(100% - 5.6px) calc(100% - 8.6px), calc(100% - 6.2px) calc(100% - 7.8px), calc(100% - 7px) calc(100% - 7px), calc(100% - 7.8px) calc(100% - 6.2px), calc(100% - 8.6px) calc(100% - 5.6px), calc(100% - 9.5px) calc(100% - 4.9px), calc(100% - 10.5px) calc(100% - 4.3px), calc(100% - 11.5px) calc(100% - 3.8px), calc(100% - 12.6px) calc(100% - 3.3px), calc(100% - 13.7px) calc(100% - 2.8px), calc(100% - 14.9px) calc(100% - 2.4px), calc(100% - 16.2px) calc(100% - 2px), calc(100% - 17.5px) calc(100% - 1.7px), calc(100% - 18.9px) calc(100% - 1.4px), calc(100% - 20.4px) calc(100% - 1.1px), calc(100% - 21.9px) calc(100% - 0.9px), calc(100% - 23.5px) calc(100% - 0.7px), calc(100% - 25.2px) calc(100% - 0.5px), calc(100% - 26.9px) calc(100% - 0.4px), calc(100% - 28.8px) calc(100% - 0.3px), calc(100% - 30.7px) calc(100% - 0.2px), calc(100% - 32.7px) calc(100% - 0.1px), calc(100% - 34.7px) calc(100% - 0px), calc(100% - 36.9px) calc(100% - 0px), calc(100% - 39.1px) calc(100% - 0px), calc(100% - 41.4px) calc(100% - 0px), calc(100% - 43.8px) calc(100% - 0px), 43.8px calc(100% - 0px), 41.4px calc(100% - 0px), 39.1px calc(100% - 0px), 36.9px calc(100% - 0px), 34.7px calc(100% - 0px), 32.7px calc(100% - 0.1px), 30.7px calc(100% - 0.2px), 28.8px calc(100% - 0.3px), 26.9px calc(100% - 0.4px), 25.2px calc(100% - 0.5px), 23.5px calc(100% - 0.7px), 21.9px calc(100% - 0.9px), 20.4px calc(100% - 1.1px), 18.9px calc(100% - 1.4px), 17.5px calc(100% - 1.7px), 16.2px calc(100% - 2px), 14.9px calc(100% - 2.4px), 13.7px calc(100% - 2.8px), 12.6px calc(100% - 3.3px), 11.5px calc(100% - 3.8px), 10.5px calc(100% - 4.3px), 9.5px calc(100% - 4.9px), 8.6px calc(100% - 5.6px), 7.8px calc(100% - 6.2px), 7px calc(100% - 7px), 6.2px calc(100% - 7.8px), 5.6px calc(100% - 8.6px), 4.9px calc(100% - 9.5px), 4.3px calc(100% - 10.5px), 3.8px calc(100% - 11.5px), 3.3px calc(100% - 12.6px), 2.8px calc(100% - 13.7px), 2.4px calc(100% - 14.9px), 2px calc(100% - 16.2px), 1.7px calc(100% - 17.5px), 1.4px calc(100% - 18.9px), 1.1px calc(100% - 20.4px), 0.9px calc(100% - 21.9px), 0.7px calc(100% - 23.5px), 0.5px calc(100% - 25.2px), 0.4px calc(100% - 26.9px), 0.3px calc(100% - 28.8px), 0.2px calc(100% - 30.7px), 0.1px calc(100% - 32.7px), 0px calc(100% - 34.7px), 0px calc(100% - 36.9px), 0px calc(100% - 39.1px), 0px calc(100% - 41.4px), 0px calc(100% - 43.8px), 0px calc(100% - 46.3px));
+  padding: 40px;
+}
+main.game section.aside > div > div.info {
+  display: flex;
+  gap: 5px;
+  height: -moz-fit-content;
+  height: fit-content;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
-main.game section.aside > div.info {
-  display: grid;
-  gap: 5px;
-}
-main.game section.aside > div.info > div {
+main.game section.aside > div > div.info > div {
   display: flex;
   gap: 10px;
 }
-main.game section.aside > div.info > div > button {
+main.game section.aside > div > div.info > div > button {
   flex-shrink: 1;
+  height: -moz-fit-content;
+  height: fit-content;
 }
-main.game section.aside > div.info > span#role {
+main.game section.aside > div > div.info > span#role {
+  font-weight: 600;
+  width: 100%;
+}
+main.game section.aside > div > div.info > div.timer {
+  gap: 5px;
+  width: 100%;
+}
+main.game section.aside > div > div.info > div.timer span,
+main.game section.aside > div > div.info > div.timer div#timer {
   font-weight: 600;
 }
-main.game section.aside > div.info > div.timer {
+main.game section.aside > div > div.info > h4 {
+  margin-bottom: 5px;
+  width: 50%;
+}
+main.game section.aside > div > div.game-play {
+  display: flex;
+  z-index: 0;
+}
+main.game section.aside > div > div.game-play > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
   gap: 5px;
 }
-main.game section.aside > div.info > h4 {
-  margin-bottom: 5px;
+main.game section.aside > div > div.game-play > div > div.drop-card {
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+  border-radius: 50px;
 }
-main.game section.aside > div.game-play {
-  display: grid;
-  align-items: end;
+main.game section.aside > div > div.game-play > div > div.drop-card > img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
-main.game section.aside > div.game-play > ul.cards-hand {
+main.game section.aside > div > div.game-play > div button {
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+}
+main.game section.aside > div > div.game-play > div button > img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+main.game section.aside > div > div.game-play div.drop-card.drag {
+  background-color: rgb(73, 160, 160);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+}
+main.game section.aside > div > div.game-play div.drop-card.drag-on {
+  background-color: rgb(107, 236, 236);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+}
+main.game section.aside > div > div.game-play > ul.cards-hand {
   display: grid;
   justify-self: flex-end;
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
   grid-template-rows: min-content min-content;
-  transform: translate(0, 30px);
 }
-main.game section.aside > div.game-play > ul.cards-hand > li {
+main.game section.aside > div > div.game-play > ul.cards-hand > li {
+  aspect-ratio: 384/538;
+  background-size: contain;
+  background-repeat: no-repeat;
   z-index: 1;
 }
-main.game section.aside > div.game-play > ul.cards-hand > li > img {
-  max-width: 100%;
-  max-height: 100%;
+main.game section.aside > div > div.game-play ul.cards-hand {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  perspective: 1000px;
 }
-main.game section.aside > div.game-play > ul.cards-hand > li:nth-child(1), main.game section.aside > div.game-play > ul.cards-hand > li:nth-child(2), main.game section.aside > div.game-play > ul.cards-hand > li:nth-child(3) {
-  transform: translate(0, 30px);
-  z-index: 0;
+main.game section.aside > div > div.game-play li {
+  aspect-ratio: 384/538;
+  height: 200px;
+  background-size: contain;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  transform-origin: bottom center;
+  transition: transform 0.3s ease, z-index 0.3s ease;
+  cursor: pointer;
 }
-main.game section.aside > div.players {
-  display: grid;
+main.game section.aside > div > div.game-play li:nth-child(1) {
+  transform: rotate(-20deg) translateX(-150px);
+  z-index: 1;
+}
+main.game section.aside > div > div.game-play li:nth-child(2) {
+  transform: rotate(-10deg) translateX(-100px);
+  z-index: 2;
+}
+main.game section.aside > div > div.game-play li:nth-child(3) {
+  transform: rotate(-5deg) translateX(-50px);
+  z-index: 3;
+}
+main.game section.aside > div > div.game-play li:nth-child(4) {
+  transform: rotate(5deg) translateX(50px);
+  z-index: 3;
+}
+main.game section.aside > div > div.game-play li:nth-child(5) {
+  transform: rotate(10deg) translateX(100px);
+  z-index: 2;
+}
+main.game section.aside > div > div.game-play li:nth-child(6) {
+  transform: rotate(20deg) translateX(150px);
+  z-index: 1;
+}
+main.game section.aside > div > div.game-play li.active {
+  transform: translateY(-20px) scale(1.1);
+  z-index: 10 !important;
+}
+main.game section.aside > div > div.players {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
-main.game section.aside > div.players > ul.players-list {
+main.game section.aside > div > div.players > ul.players-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
+  height: -moz-fit-content;
+  height: fit-content;
 }
-main.game section.aside > div.players > ul.players-list > li {
-  background-color: #597E8E;
+main.game section.aside > div > div.players > ul.players-list > li {
+  background-color: #7cadc2;
   height: 35px;
   z-index: 2;
   position: relative;
@@ -204,61 +367,62 @@ main.game section.aside > div.players > ul.players-list > li {
   padding: 5px 10px;
   border-radius: 5px;
 }
-main.game section.aside > div.players > ul.players-list > li.cur-move {
+main.game section.aside > div > div.players > ul.players-list > li > div.extra-icon {
+  background-size: contain;
+  background-repeat: no-repeat;
+  content: "";
+  width: 30px;
+  height: 30px;
+  z-index: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+main.game section.aside > div > div.players > ul.players-list > li > div.extra-icon.trolley {
+  background-image: url("../img/action_cards/trolley.png");
+}
+main.game section.aside > div > div.players > ul.players-list > li > div.extra-icon.pick {
+  background-image: url("../img/action_cards/pick.png");
+}
+main.game section.aside > div > div.players > ul.players-list > li > div.extra-icon.lamp {
+  background-image: url("../img/action_cards/lamp.png");
+}
+main.game section.aside > div > div.players > ul.players-list > li > div.extra-icon:nth-of-type(2) {
+  right: 35px;
+}
+main.game section.aside > div > div.players > ul.players-list > li > div.extra-icon:nth-of-type(3) {
+  right: 65px;
+}
+main.game section.aside > div > div.players > ul.players-list > li > div.extra-icon:nth-of-type(4) {
+  right: 95px;
+}
+main.game section.aside > div > div.players > ul.players-list > li > div.extra-icon:nth-of-type(5) {
+  right: 125px;
+}
+main.game section.aside > div > div.players > ul.players-list > li.cur-move {
   background-color: green;
 }
-main.game section.aside > div.players > ul.players-list > li.trolley::after {
-  background-image: url("../img/action_cards/trolley.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  content: "";
-  width: 30px;
-  height: 30px;
-  z-index: 0;
-  pointer-events: none;
-  position: absolute;
-  top: 5px;
-  right: 5px;
+main.game section.aside > div > div.players > ul.players-list > li.drag-on {
+  background-color: rgb(107, 236, 236);
 }
-main.game section.aside > div.players > ul.players-list > li.pick::after {
-  background-image: url("../img/action_cards/pick.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  content: "";
-  width: 30px;
-  height: 30px;
-  z-index: 0;
-  pointer-events: none;
-  position: absolute;
-  top: 5px;
-  right: 5px;
+main.game ul.cards-hand.switch > li.active {
+  transform-origin: center;
+  transform: translateY(-20px) scale(1.1) rotate(180deg) !important;
 }
-main.game section.aside > div.players > ul.players-list > li.lamp::after {
-  background-image: url("../img/action_cards/lamp.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  content: "";
-  width: 30px;
-  height: 30px;
-  z-index: 0;
-  pointer-events: none;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-}
-main.game ul.cards-hand.switch > li > img,
-main.game img.switch {
-  transform: rotate(180deg);
+main.game div.switch {
+  transform: rotate(180deg) !important;
 }
 main.game section.field {
-  display: grid;
+  height: 100%;
   align-items: center;
+  margin: auto;
 }
 main.game section.field > div {
   width: auto;
   display: grid;
   grid-template-rows: repeat(7, min-content);
-  margin: 2vh;
+  padding: 2vh;
   align-items: center;
   aspect-ratio: 3447/3773;
   height: 100%;
@@ -273,6 +437,7 @@ main.game section.field > div > div.row > div {
   border-radius: 10px;
   width: auto;
   background-color: gray;
+  background-size: contain;
 }
 main.game section.field > div > div.row > div > img {
   max-width: 100%;
@@ -283,15 +448,29 @@ main.game section.field > div > div.row > div > img {
   height: 100%;
 }
 main.game section.field > div > div.row > div.drag-on {
-  background-color: aqua;
+  background-color: rgb(107, 236, 236);
 }
 
 dialog {
-  width: 40vw;
+  width: -moz-fit-content;
+  width: fit-content;
   border: none;
   border-radius: 24px;
   -webkit-clip-path: polygon(0px 46.3px, 0px 43.8px, 0px 41.4px, 0px 39.1px, 0px 36.9px, 0px 34.7px, 0.1px 32.7px, 0.2px 30.7px, 0.3px 28.8px, 0.4px 26.9px, 0.5px 25.2px, 0.7px 23.5px, 0.9px 21.9px, 1.1px 20.4px, 1.4px 18.9px, 1.7px 17.5px, 2px 16.2px, 2.4px 14.9px, 2.8px 13.7px, 3.3px 12.6px, 3.8px 11.5px, 4.3px 10.5px, 4.9px 9.5px, 5.6px 8.6px, 6.2px 7.8px, 7px 7px, 7.8px 6.2px, 8.6px 5.6px, 9.5px 4.9px, 10.5px 4.3px, 11.5px 3.8px, 12.6px 3.3px, 13.7px 2.8px, 14.9px 2.4px, 16.2px 2px, 17.5px 1.7px, 18.9px 1.4px, 20.4px 1.1px, 21.9px 0.9px, 23.5px 0.7px, 25.2px 0.5px, 26.9px 0.4px, 28.8px 0.3px, 30.7px 0.2px, 32.7px 0.1px, 34.7px 0px, 36.9px 0px, 39.1px 0px, 41.4px 0px, 43.8px 0px, calc(100% - 43.8px) 0px, calc(100% - 41.4px) 0px, calc(100% - 39.1px) 0px, calc(100% - 36.9px) 0px, calc(100% - 34.7px) 0px, calc(100% - 32.7px) 0.1px, calc(100% - 30.7px) 0.2px, calc(100% - 28.8px) 0.3px, calc(100% - 26.9px) 0.4px, calc(100% - 25.2px) 0.5px, calc(100% - 23.5px) 0.7px, calc(100% - 21.9px) 0.9px, calc(100% - 20.4px) 1.1px, calc(100% - 18.9px) 1.4px, calc(100% - 17.5px) 1.7px, calc(100% - 16.2px) 2px, calc(100% - 14.9px) 2.4px, calc(100% - 13.7px) 2.8px, calc(100% - 12.6px) 3.3px, calc(100% - 11.5px) 3.8px, calc(100% - 10.5px) 4.3px, calc(100% - 9.5px) 4.9px, calc(100% - 8.6px) 5.6px, calc(100% - 7.8px) 6.2px, calc(100% - 7px) 7px, calc(100% - 6.2px) 7.8px, calc(100% - 5.6px) 8.6px, calc(100% - 4.9px) 9.5px, calc(100% - 4.3px) 10.5px, calc(100% - 3.8px) 11.5px, calc(100% - 3.3px) 12.6px, calc(100% - 2.8px) 13.7px, calc(100% - 2.4px) 14.9px, calc(100% - 2px) 16.2px, calc(100% - 1.7px) 17.5px, calc(100% - 1.4px) 18.9px, calc(100% - 1.1px) 20.4px, calc(100% - 0.9px) 21.9px, calc(100% - 0.7px) 23.5px, calc(100% - 0.5px) 25.2px, calc(100% - 0.4px) 26.9px, calc(100% - 0.3px) 28.8px, calc(100% - 0.2px) 30.7px, calc(100% - 0.1px) 32.7px, calc(100% - 0px) 34.7px, calc(100% - 0px) 36.9px, calc(100% - 0px) 39.1px, calc(100% - 0px) 41.4px, calc(100% - 0px) 43.8px, calc(100% - 0px) 46.3px, calc(100% - 0px) calc(100% - 46.3px), calc(100% - 0px) calc(100% - 43.8px), calc(100% - 0px) calc(100% - 41.4px), calc(100% - 0px) calc(100% - 39.1px), calc(100% - 0px) calc(100% - 36.9px), calc(100% - 0px) calc(100% - 34.7px), calc(100% - 0.1px) calc(100% - 32.7px), calc(100% - 0.2px) calc(100% - 30.7px), calc(100% - 0.3px) calc(100% - 28.8px), calc(100% - 0.4px) calc(100% - 26.9px), calc(100% - 0.5px) calc(100% - 25.2px), calc(100% - 0.7px) calc(100% - 23.5px), calc(100% - 0.9px) calc(100% - 21.9px), calc(100% - 1.1px) calc(100% - 20.4px), calc(100% - 1.4px) calc(100% - 18.9px), calc(100% - 1.7px) calc(100% - 17.5px), calc(100% - 2px) calc(100% - 16.2px), calc(100% - 2.4px) calc(100% - 14.9px), calc(100% - 2.8px) calc(100% - 13.7px), calc(100% - 3.3px) calc(100% - 12.6px), calc(100% - 3.8px) calc(100% - 11.5px), calc(100% - 4.3px) calc(100% - 10.5px), calc(100% - 4.9px) calc(100% - 9.5px), calc(100% - 5.6px) calc(100% - 8.6px), calc(100% - 6.2px) calc(100% - 7.8px), calc(100% - 7px) calc(100% - 7px), calc(100% - 7.8px) calc(100% - 6.2px), calc(100% - 8.6px) calc(100% - 5.6px), calc(100% - 9.5px) calc(100% - 4.9px), calc(100% - 10.5px) calc(100% - 4.3px), calc(100% - 11.5px) calc(100% - 3.8px), calc(100% - 12.6px) calc(100% - 3.3px), calc(100% - 13.7px) calc(100% - 2.8px), calc(100% - 14.9px) calc(100% - 2.4px), calc(100% - 16.2px) calc(100% - 2px), calc(100% - 17.5px) calc(100% - 1.7px), calc(100% - 18.9px) calc(100% - 1.4px), calc(100% - 20.4px) calc(100% - 1.1px), calc(100% - 21.9px) calc(100% - 0.9px), calc(100% - 23.5px) calc(100% - 0.7px), calc(100% - 25.2px) calc(100% - 0.5px), calc(100% - 26.9px) calc(100% - 0.4px), calc(100% - 28.8px) calc(100% - 0.3px), calc(100% - 30.7px) calc(100% - 0.2px), calc(100% - 32.7px) calc(100% - 0.1px), calc(100% - 34.7px) calc(100% - 0px), calc(100% - 36.9px) calc(100% - 0px), calc(100% - 39.1px) calc(100% - 0px), calc(100% - 41.4px) calc(100% - 0px), calc(100% - 43.8px) calc(100% - 0px), 43.8px calc(100% - 0px), 41.4px calc(100% - 0px), 39.1px calc(100% - 0px), 36.9px calc(100% - 0px), 34.7px calc(100% - 0px), 32.7px calc(100% - 0.1px), 30.7px calc(100% - 0.2px), 28.8px calc(100% - 0.3px), 26.9px calc(100% - 0.4px), 25.2px calc(100% - 0.5px), 23.5px calc(100% - 0.7px), 21.9px calc(100% - 0.9px), 20.4px calc(100% - 1.1px), 18.9px calc(100% - 1.4px), 17.5px calc(100% - 1.7px), 16.2px calc(100% - 2px), 14.9px calc(100% - 2.4px), 13.7px calc(100% - 2.8px), 12.6px calc(100% - 3.3px), 11.5px calc(100% - 3.8px), 10.5px calc(100% - 4.3px), 9.5px calc(100% - 4.9px), 8.6px calc(100% - 5.6px), 7.8px calc(100% - 6.2px), 7px calc(100% - 7px), 6.2px calc(100% - 7.8px), 5.6px calc(100% - 8.6px), 4.9px calc(100% - 9.5px), 4.3px calc(100% - 10.5px), 3.8px calc(100% - 11.5px), 3.3px calc(100% - 12.6px), 2.8px calc(100% - 13.7px), 2.4px calc(100% - 14.9px), 2px calc(100% - 16.2px), 1.7px calc(100% - 17.5px), 1.4px calc(100% - 18.9px), 1.1px calc(100% - 20.4px), 0.9px calc(100% - 21.9px), 0.7px calc(100% - 23.5px), 0.5px calc(100% - 25.2px), 0.4px calc(100% - 26.9px), 0.3px calc(100% - 28.8px), 0.2px calc(100% - 30.7px), 0.1px calc(100% - 32.7px), 0px calc(100% - 34.7px), 0px calc(100% - 36.9px), 0px calc(100% - 39.1px), 0px calc(100% - 41.4px), 0px calc(100% - 43.8px), 0px calc(100% - 46.3px));
           clip-path: polygon(0px 46.3px, 0px 43.8px, 0px 41.4px, 0px 39.1px, 0px 36.9px, 0px 34.7px, 0.1px 32.7px, 0.2px 30.7px, 0.3px 28.8px, 0.4px 26.9px, 0.5px 25.2px, 0.7px 23.5px, 0.9px 21.9px, 1.1px 20.4px, 1.4px 18.9px, 1.7px 17.5px, 2px 16.2px, 2.4px 14.9px, 2.8px 13.7px, 3.3px 12.6px, 3.8px 11.5px, 4.3px 10.5px, 4.9px 9.5px, 5.6px 8.6px, 6.2px 7.8px, 7px 7px, 7.8px 6.2px, 8.6px 5.6px, 9.5px 4.9px, 10.5px 4.3px, 11.5px 3.8px, 12.6px 3.3px, 13.7px 2.8px, 14.9px 2.4px, 16.2px 2px, 17.5px 1.7px, 18.9px 1.4px, 20.4px 1.1px, 21.9px 0.9px, 23.5px 0.7px, 25.2px 0.5px, 26.9px 0.4px, 28.8px 0.3px, 30.7px 0.2px, 32.7px 0.1px, 34.7px 0px, 36.9px 0px, 39.1px 0px, 41.4px 0px, 43.8px 0px, calc(100% - 43.8px) 0px, calc(100% - 41.4px) 0px, calc(100% - 39.1px) 0px, calc(100% - 36.9px) 0px, calc(100% - 34.7px) 0px, calc(100% - 32.7px) 0.1px, calc(100% - 30.7px) 0.2px, calc(100% - 28.8px) 0.3px, calc(100% - 26.9px) 0.4px, calc(100% - 25.2px) 0.5px, calc(100% - 23.5px) 0.7px, calc(100% - 21.9px) 0.9px, calc(100% - 20.4px) 1.1px, calc(100% - 18.9px) 1.4px, calc(100% - 17.5px) 1.7px, calc(100% - 16.2px) 2px, calc(100% - 14.9px) 2.4px, calc(100% - 13.7px) 2.8px, calc(100% - 12.6px) 3.3px, calc(100% - 11.5px) 3.8px, calc(100% - 10.5px) 4.3px, calc(100% - 9.5px) 4.9px, calc(100% - 8.6px) 5.6px, calc(100% - 7.8px) 6.2px, calc(100% - 7px) 7px, calc(100% - 6.2px) 7.8px, calc(100% - 5.6px) 8.6px, calc(100% - 4.9px) 9.5px, calc(100% - 4.3px) 10.5px, calc(100% - 3.8px) 11.5px, calc(100% - 3.3px) 12.6px, calc(100% - 2.8px) 13.7px, calc(100% - 2.4px) 14.9px, calc(100% - 2px) 16.2px, calc(100% - 1.7px) 17.5px, calc(100% - 1.4px) 18.9px, calc(100% - 1.1px) 20.4px, calc(100% - 0.9px) 21.9px, calc(100% - 0.7px) 23.5px, calc(100% - 0.5px) 25.2px, calc(100% - 0.4px) 26.9px, calc(100% - 0.3px) 28.8px, calc(100% - 0.2px) 30.7px, calc(100% - 0.1px) 32.7px, calc(100% - 0px) 34.7px, calc(100% - 0px) 36.9px, calc(100% - 0px) 39.1px, calc(100% - 0px) 41.4px, calc(100% - 0px) 43.8px, calc(100% - 0px) 46.3px, calc(100% - 0px) calc(100% - 46.3px), calc(100% - 0px) calc(100% - 43.8px), calc(100% - 0px) calc(100% - 41.4px), calc(100% - 0px) calc(100% - 39.1px), calc(100% - 0px) calc(100% - 36.9px), calc(100% - 0px) calc(100% - 34.7px), calc(100% - 0.1px) calc(100% - 32.7px), calc(100% - 0.2px) calc(100% - 30.7px), calc(100% - 0.3px) calc(100% - 28.8px), calc(100% - 0.4px) calc(100% - 26.9px), calc(100% - 0.5px) calc(100% - 25.2px), calc(100% - 0.7px) calc(100% - 23.5px), calc(100% - 0.9px) calc(100% - 21.9px), calc(100% - 1.1px) calc(100% - 20.4px), calc(100% - 1.4px) calc(100% - 18.9px), calc(100% - 1.7px) calc(100% - 17.5px), calc(100% - 2px) calc(100% - 16.2px), calc(100% - 2.4px) calc(100% - 14.9px), calc(100% - 2.8px) calc(100% - 13.7px), calc(100% - 3.3px) calc(100% - 12.6px), calc(100% - 3.8px) calc(100% - 11.5px), calc(100% - 4.3px) calc(100% - 10.5px), calc(100% - 4.9px) calc(100% - 9.5px), calc(100% - 5.6px) calc(100% - 8.6px), calc(100% - 6.2px) calc(100% - 7.8px), calc(100% - 7px) calc(100% - 7px), calc(100% - 7.8px) calc(100% - 6.2px), calc(100% - 8.6px) calc(100% - 5.6px), calc(100% - 9.5px) calc(100% - 4.9px), calc(100% - 10.5px) calc(100% - 4.3px), calc(100% - 11.5px) calc(100% - 3.8px), calc(100% - 12.6px) calc(100% - 3.3px), calc(100% - 13.7px) calc(100% - 2.8px), calc(100% - 14.9px) calc(100% - 2.4px), calc(100% - 16.2px) calc(100% - 2px), calc(100% - 17.5px) calc(100% - 1.7px), calc(100% - 18.9px) calc(100% - 1.4px), calc(100% - 20.4px) calc(100% - 1.1px), calc(100% - 21.9px) calc(100% - 0.9px), calc(100% - 23.5px) calc(100% - 0.7px), calc(100% - 25.2px) calc(100% - 0.5px), calc(100% - 26.9px) calc(100% - 0.4px), calc(100% - 28.8px) calc(100% - 0.3px), calc(100% - 30.7px) calc(100% - 0.2px), calc(100% - 32.7px) calc(100% - 0.1px), calc(100% - 34.7px) calc(100% - 0px), calc(100% - 36.9px) calc(100% - 0px), calc(100% - 39.1px) calc(100% - 0px), calc(100% - 41.4px) calc(100% - 0px), calc(100% - 43.8px) calc(100% - 0px), 43.8px calc(100% - 0px), 41.4px calc(100% - 0px), 39.1px calc(100% - 0px), 36.9px calc(100% - 0px), 34.7px calc(100% - 0px), 32.7px calc(100% - 0.1px), 30.7px calc(100% - 0.2px), 28.8px calc(100% - 0.3px), 26.9px calc(100% - 0.4px), 25.2px calc(100% - 0.5px), 23.5px calc(100% - 0.7px), 21.9px calc(100% - 0.9px), 20.4px calc(100% - 1.1px), 18.9px calc(100% - 1.4px), 17.5px calc(100% - 1.7px), 16.2px calc(100% - 2px), 14.9px calc(100% - 2.4px), 13.7px calc(100% - 2.8px), 12.6px calc(100% - 3.3px), 11.5px calc(100% - 3.8px), 10.5px calc(100% - 4.3px), 9.5px calc(100% - 4.9px), 8.6px calc(100% - 5.6px), 7.8px calc(100% - 6.2px), 7px calc(100% - 7px), 6.2px calc(100% - 7.8px), 5.6px calc(100% - 8.6px), 4.9px calc(100% - 9.5px), 4.3px calc(100% - 10.5px), 3.8px calc(100% - 11.5px), 3.3px calc(100% - 12.6px), 2.8px calc(100% - 13.7px), 2.4px calc(100% - 14.9px), 2px calc(100% - 16.2px), 1.7px calc(100% - 17.5px), 1.4px calc(100% - 18.9px), 1.1px calc(100% - 20.4px), 0.9px calc(100% - 21.9px), 0.7px calc(100% - 23.5px), 0.5px calc(100% - 25.2px), 0.4px calc(100% - 26.9px), 0.3px calc(100% - 28.8px), 0.2px calc(100% - 30.7px), 0.1px calc(100% - 32.7px), 0px calc(100% - 34.7px), 0px calc(100% - 36.9px), 0px calc(100% - 39.1px), 0px calc(100% - 41.4px), 0px calc(100% - 43.8px), 0px calc(100% - 46.3px));
+  position: relative;
+}
+dialog button.close {
+  position: absolute;
+  background-image: url("../img/close.svg");
+  background-color: white;
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  right: 20px;
+  top: 20px;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);
 }
 dialog > form > label {
   display: flex;
@@ -301,6 +480,11 @@ dialog > form > label {
 dialog[data-dialog-name=rules-dialog] {
   width: 80vw;
   height: 90vh;
+}
+dialog[data-dialog-name=rules-dialog] button.close {
+  right: calc(10vw + 20px);
+  top: calc(5vh + 20px);
+  position: fixed;
 }
 dialog[data-dialog-name=rules-dialog] > div {
   display: grid;
@@ -322,27 +506,34 @@ dialog[data-dialog-name=rules-dialog] > div > div > p {
 dialog[data-dialog-name=rules-dialog] > div > ul {
   list-style: unset;
 }
-dialog[data-dialog-name=auth-dialog], dialog[data-dialog-name=register-dialog] {
-  padding: 40px;
+dialog[data-dialog-name=rules-dialog] > div h2 {
+  margin-top: 20px;
 }
-dialog[data-dialog-name=auth-dialog] > form, dialog[data-dialog-name=register-dialog] > form {
+dialog[data-dialog-name=rules-dialog] > div h2:first-child {
+  margin-top: 0px;
+}
+dialog[data-dialog-name=auth-dialog], dialog[data-dialog-name=register-dialog], dialog[data-dialog-name=create-room-dialog] {
+  padding: 40px;
+  padding-top: 60px;
+}
+dialog[data-dialog-name=auth-dialog] > form, dialog[data-dialog-name=register-dialog] > form, dialog[data-dialog-name=create-room-dialog] > form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 30px;
 }
-dialog[data-dialog-name=auth-dialog] > form > h2, dialog[data-dialog-name=register-dialog] > form > h2 {
+dialog[data-dialog-name=auth-dialog] > form > h2, dialog[data-dialog-name=register-dialog] > form > h2, dialog[data-dialog-name=create-room-dialog] > form > h2 {
   text-align: center;
   font-family: "Rubik Doodle Shadow", serif;
 }
-dialog[data-dialog-name=auth-dialog] > form .forms, dialog[data-dialog-name=register-dialog] > form .forms {
+dialog[data-dialog-name=auth-dialog] > form .forms, dialog[data-dialog-name=register-dialog] > form .forms, dialog[data-dialog-name=create-room-dialog] > form .forms {
   display: grid;
-  gap: 5px;
+  gap: 15px;
 }
-dialog[data-dialog-name=auth-dialog] > form .form-group, dialog[data-dialog-name=register-dialog] > form .form-group {
+dialog[data-dialog-name=auth-dialog] > form .form-group, dialog[data-dialog-name=register-dialog] > form .form-group, dialog[data-dialog-name=create-room-dialog] > form .form-group {
   position: relative;
 }
-dialog[data-dialog-name=auth-dialog] > form .form-group > label, dialog[data-dialog-name=register-dialog] > form .form-group > label {
+dialog[data-dialog-name=auth-dialog] > form .form-group > label, dialog[data-dialog-name=register-dialog] > form .form-group > label, dialog[data-dialog-name=create-room-dialog] > form .form-group > label {
   position: absolute;
   top: 50%;
   left: 10px;
@@ -352,7 +543,7 @@ dialog[data-dialog-name=auth-dialog] > form .form-group > label, dialog[data-dia
   transition: all 0.3s ease;
   pointer-events: none;
 }
-dialog[data-dialog-name=auth-dialog] > form .form-group > input, dialog[data-dialog-name=register-dialog] > form .form-group > input {
+dialog[data-dialog-name=auth-dialog] > form .form-group > input, dialog[data-dialog-name=register-dialog] > form .form-group > input, dialog[data-dialog-name=create-room-dialog] > form .form-group > input {
   width: 100%;
   padding: 10px 10px 10px 10px;
   font-size: 16px;
@@ -361,7 +552,7 @@ dialog[data-dialog-name=auth-dialog] > form .form-group > input, dialog[data-dia
   outline: none;
   transition: border-color 0.3s ease;
 }
-dialog[data-dialog-name=auth-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label, dialog[data-dialog-name=register-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label {
+dialog[data-dialog-name=auth-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label, dialog[data-dialog-name=register-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label, dialog[data-dialog-name=create-room-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label {
   top: calc(100% + 10px);
   left: 10px;
   font-size: 12px;
@@ -369,19 +560,23 @@ dialog[data-dialog-name=auth-dialog] > form .form-group input:not(:-moz-placehol
 }
 dialog[data-dialog-name=auth-dialog] > form .form-group input:focus + label,
 dialog[data-dialog-name=auth-dialog] > form .form-group input:not(:placeholder-shown) + label, dialog[data-dialog-name=register-dialog] > form .form-group input:focus + label,
-dialog[data-dialog-name=register-dialog] > form .form-group input:not(:placeholder-shown) + label {
+dialog[data-dialog-name=register-dialog] > form .form-group input:not(:placeholder-shown) + label, dialog[data-dialog-name=create-room-dialog] > form .form-group input:focus + label,
+dialog[data-dialog-name=create-room-dialog] > form .form-group input:not(:placeholder-shown) + label {
   top: calc(100% + 10px);
   left: 10px;
   font-size: 12px;
   color: #9e9e9e;
 }
-dialog[data-dialog-name=auth-dialog] > form > button, dialog[data-dialog-name=register-dialog] > form > button {
+dialog[data-dialog-name=auth-dialog] > form > button, dialog[data-dialog-name=register-dialog] > form > button, dialog[data-dialog-name=create-room-dialog] > form > button {
   width: -moz-fit-content;
   width: fit-content;
   align-self: center;
 }
+dialog[data-dialog-name=create-room-dialog] .form-group {
+  margin: 0 !important;
+}
 dialog[data-dialog-name=end-dialog], dialog[data-dialog-name=alert-dialog] {
-  padding: 40px;
+  padding: 50px;
 }
 dialog[data-dialog-name=end-dialog] > div, dialog[data-dialog-name=alert-dialog] > div {
   display: grid;
@@ -397,16 +592,24 @@ dialog::backdrop {
 main.rooms {
   padding: 50px;
   display: grid;
-  grid-template-rows: 1fr 1fr 6fr;
+  grid-template-rows: 1fr 1fr minmax(0, 6fr);
   gap: 20px;
 }
 main.rooms > div.header {
   display: flex;
   justify-content: space-between;
 }
+main.rooms > div.header > div {
+  display: flex;
+  gap: 15px;
+  height: -moz-fit-content;
+  height: fit-content;
+}
 main.rooms .form-group {
   position: relative;
   margin: 0 60px;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 main.rooms .form-group > label {
   position: absolute;
@@ -446,20 +649,30 @@ main.rooms > div.games {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
 }
 main.rooms > div.games > ul.rooms-list {
   padding: 0 60px;
-  height: 45vh;
+  height: 70%;
   overflow-y: auto;
-  width: 100%;
+  width: 70%;
+}
+main.rooms > div.games > ul.rooms-list > p {
+  text-align: center;
+  margin-top: 20px;
 }
 main.rooms > div.games > ul.rooms-list > li {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 2fr 1.5fr 2fr;
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid #597E8E;
   padding: 20px;
+}
+main.rooms > div.games > ul.rooms-list > li > button {
+  width: -moz-fit-content;
+  width: fit-content;
+  justify-self: center;
 }
 main.rooms > div.games > button {
   margin-top: 20px;
@@ -475,8 +688,100 @@ main.start > h1 {
 main.start > p {
   margin-bottom: 30px;
   font-size: 20px;
+  font-family: "Circe";
 }
 main.start > div {
   display: flex;
   gap: 25px;
+}
+
+main.profile {
+  padding: 50px;
+  display: grid;
+  grid-template-rows: 1fr minmax(0, 6fr);
+  gap: 20px;
+}
+main.profile > div.header {
+  display: flex;
+  justify-content: space-between;
+}
+main.profile > div.header > div {
+  display: flex;
+  gap: 15px;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+main.profile .form-group {
+  position: relative;
+  margin: 0 60px;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+main.profile .form-group > label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: rgb(40, 35, 35);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+main.profile .form-group > input {
+  width: 100%;
+  padding: 10px 10px 10px 10px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid #597E8E;
+  outline: none;
+  transition: border-color 0.3s ease;
+  background-color: transparent;
+  width: 45%;
+}
+main.profile .form-group input:not(:-moz-placeholder-shown) + label {
+  top: calc(100% + 10px);
+  left: 10px;
+  font-size: 12px;
+  color: #9e9e9e;
+}
+main.profile .form-group input:focus + label,
+main.profile .form-group input:not(:placeholder-shown) + label {
+  top: calc(100% + 10px);
+  left: 10px;
+  font-size: 12px;
+  color: #9e9e9e;
+}
+main.profile > div.games {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+main.profile > div.games > ul.rooms-list {
+  padding: 0 60px;
+  height: 70%;
+  overflow-y: auto;
+  width: 70%;
+}
+main.profile > div.games > ul.rooms-list > p {
+  text-align: center;
+  margin-top: 20px;
+}
+main.profile > div.games > ul.rooms-list > li {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1.5fr 2fr;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #597E8E;
+  padding: 20px;
+}
+main.profile > div.games > ul.rooms-list > li > button {
+  width: -moz-fit-content;
+  width: fit-content;
+  justify-self: center;
+}
+main.profile > div.games > div {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
 }/*# sourceMappingURL=index.css.map */

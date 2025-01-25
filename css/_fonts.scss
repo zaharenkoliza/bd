@@ -1,16 +1,16 @@
-// @font-face
-// {
-// 	font-family: 'Circe Light';
-// 	src: url('../fonts/circe_light.woff2') format('woff2'),
-// 	url('../fonts/circe_light.woff') format('woff');
-// }
+@font-face
+{
+	font-family: 'Circe Light';
+	src: url('../fonts/circe_light.woff2') format('woff2'),
+	url('../fonts/circe_light.woff') format('woff');
+}
 
-// @font-face
-// {
-// 	font-family: 'Circe';
-// 	src: url('../fonts/circe.woff2') format('woff2'),
-// 	url('../fonts/circe.woff') format('woff');
-// }
+@font-face
+{
+	font-family: 'Circe';
+	src: url('../fonts/circe.woff2') format('woff2'),
+	url('../fonts/circe.woff') format('woff');
+}
 
 @font-face
 {
@@ -26,6 +26,7 @@ h1 {
 
 h2 {
 	font-size: 40px;
+	font-family: 'FiveYearsLater';
 }
 
 body {
