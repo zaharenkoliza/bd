@@ -37,6 +37,7 @@ if (!$result) {
 					<div class='timer waiting'>
 						<span>Время до конца хода:</span>
 						<div id='timer'></div>
+						<div></div>
 					</div>
 				</div>
 
