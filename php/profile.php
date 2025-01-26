@@ -72,6 +72,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		include './rules.tpl'; 
 		include './alertDialog.tpl' ;
 		include './createRoomDialog.tpl';
+		include './changePasswordDialog.tpl';
 		?>
 	</main>
 	<script type="module" src="../scripts/index.js"></script>
