@@ -86,7 +86,7 @@ html > body main {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 #orientation-warning {
@@ -113,7 +113,7 @@ html > body main {
 
 @media (max-width: 1024px) {
   main {
-    display: none;
+    display: none !important;
   }
   #orientation-warning {
     display: flex;
@@ -216,14 +216,29 @@ main.game section.aside > div > div.info {
   flex-wrap: wrap;
   justify-content: space-between;
 }
-main.game section.aside > div > div.info > div {
+main.game section.aside > div > div.info > div.head {
+  justify-content: space-between;
+  width: 100%;
+}
+main.game section.aside > div > div.info > div.head > div {
   display: flex;
   gap: 10px;
 }
-main.game section.aside > div > div.info > div > button {
+main.game section.aside > div > div.info > div.head > div > button {
   flex-shrink: 1;
   height: -moz-fit-content;
   height: fit-content;
+  white-space: nowrap;
+}
+main.game section.aside > div > div.info > div {
+  display: flex;
+}
+main.game section.aside > div > div.info > div.moves {
+  gap: 5px;
+}
+main.game section.aside > div > div.info > div.moves > span,
+main.game section.aside > div > div.info > div.moves div {
+  font-weight: 600;
 }
 main.game section.aside > div > div.info > span#role {
   font-weight: 600;
@@ -512,28 +527,28 @@ dialog[data-dialog-name=rules-dialog] > div h2 {
 dialog[data-dialog-name=rules-dialog] > div h2:first-child {
   margin-top: 0px;
 }
-dialog[data-dialog-name=auth-dialog], dialog[data-dialog-name=register-dialog], dialog[data-dialog-name=create-room-dialog] {
+dialog[data-dialog-name=auth-dialog], dialog[data-dialog-name=register-dialog], dialog[data-dialog-name=create-room-dialog], dialog[data-dialog-name=change-password-dialog] {
   padding: 40px;
   padding-top: 60px;
 }
-dialog[data-dialog-name=auth-dialog] > form, dialog[data-dialog-name=register-dialog] > form, dialog[data-dialog-name=create-room-dialog] > form {
+dialog[data-dialog-name=auth-dialog] > form, dialog[data-dialog-name=register-dialog] > form, dialog[data-dialog-name=create-room-dialog] > form, dialog[data-dialog-name=change-password-dialog] > form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 30px;
 }
-dialog[data-dialog-name=auth-dialog] > form > h2, dialog[data-dialog-name=register-dialog] > form > h2, dialog[data-dialog-name=create-room-dialog] > form > h2 {
+dialog[data-dialog-name=auth-dialog] > form > h2, dialog[data-dialog-name=register-dialog] > form > h2, dialog[data-dialog-name=create-room-dialog] > form > h2, dialog[data-dialog-name=change-password-dialog] > form > h2 {
   text-align: center;
   font-family: "Rubik Doodle Shadow", serif;
 }
-dialog[data-dialog-name=auth-dialog] > form .forms, dialog[data-dialog-name=register-dialog] > form .forms, dialog[data-dialog-name=create-room-dialog] > form .forms {
+dialog[data-dialog-name=auth-dialog] > form .forms, dialog[data-dialog-name=register-dialog] > form .forms, dialog[data-dialog-name=create-room-dialog] > form .forms, dialog[data-dialog-name=change-password-dialog] > form .forms {
   display: grid;
   gap: 15px;
 }
-dialog[data-dialog-name=auth-dialog] > form .form-group, dialog[data-dialog-name=register-dialog] > form .form-group, dialog[data-dialog-name=create-room-dialog] > form .form-group {
+dialog[data-dialog-name=auth-dialog] > form .form-group, dialog[data-dialog-name=register-dialog] > form .form-group, dialog[data-dialog-name=create-room-dialog] > form .form-group, dialog[data-dialog-name=change-password-dialog] > form .form-group {
   position: relative;
 }
-dialog[data-dialog-name=auth-dialog] > form .form-group > label, dialog[data-dialog-name=register-dialog] > form .form-group > label, dialog[data-dialog-name=create-room-dialog] > form .form-group > label {
+dialog[data-dialog-name=auth-dialog] > form .form-group > label, dialog[data-dialog-name=register-dialog] > form .form-group > label, dialog[data-dialog-name=create-room-dialog] > form .form-group > label, dialog[data-dialog-name=change-password-dialog] > form .form-group > label {
   position: absolute;
   top: 50%;
   left: 10px;
@@ -543,7 +558,7 @@ dialog[data-dialog-name=auth-dialog] > form .form-group > label, dialog[data-dia
   transition: all 0.3s ease;
   pointer-events: none;
 }
-dialog[data-dialog-name=auth-dialog] > form .form-group > input, dialog[data-dialog-name=register-dialog] > form .form-group > input, dialog[data-dialog-name=create-room-dialog] > form .form-group > input {
+dialog[data-dialog-name=auth-dialog] > form .form-group > input, dialog[data-dialog-name=register-dialog] > form .form-group > input, dialog[data-dialog-name=create-room-dialog] > form .form-group > input, dialog[data-dialog-name=change-password-dialog] > form .form-group > input {
   width: 100%;
   padding: 10px 10px 10px 10px;
   font-size: 16px;
@@ -552,7 +567,7 @@ dialog[data-dialog-name=auth-dialog] > form .form-group > input, dialog[data-dia
   outline: none;
   transition: border-color 0.3s ease;
 }
-dialog[data-dialog-name=auth-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label, dialog[data-dialog-name=register-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label, dialog[data-dialog-name=create-room-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label {
+dialog[data-dialog-name=auth-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label, dialog[data-dialog-name=register-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label, dialog[data-dialog-name=create-room-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label, dialog[data-dialog-name=change-password-dialog] > form .form-group input:not(:-moz-placeholder-shown) + label {
   top: calc(100% + 10px);
   left: 10px;
   font-size: 12px;
@@ -561,13 +576,14 @@ dialog[data-dialog-name=auth-dialog] > form .form-group input:not(:-moz-placehol
 dialog[data-dialog-name=auth-dialog] > form .form-group input:focus + label,
 dialog[data-dialog-name=auth-dialog] > form .form-group input:not(:placeholder-shown) + label, dialog[data-dialog-name=register-dialog] > form .form-group input:focus + label,
 dialog[data-dialog-name=register-dialog] > form .form-group input:not(:placeholder-shown) + label, dialog[data-dialog-name=create-room-dialog] > form .form-group input:focus + label,
-dialog[data-dialog-name=create-room-dialog] > form .form-group input:not(:placeholder-shown) + label {
+dialog[data-dialog-name=create-room-dialog] > form .form-group input:not(:placeholder-shown) + label, dialog[data-dialog-name=change-password-dialog] > form .form-group input:focus + label,
+dialog[data-dialog-name=change-password-dialog] > form .form-group input:not(:placeholder-shown) + label {
   top: calc(100% + 10px);
   left: 10px;
   font-size: 12px;
   color: #9e9e9e;
 }
-dialog[data-dialog-name=auth-dialog] > form > button, dialog[data-dialog-name=register-dialog] > form > button, dialog[data-dialog-name=create-room-dialog] > form > button {
+dialog[data-dialog-name=auth-dialog] > form > button, dialog[data-dialog-name=register-dialog] > form > button, dialog[data-dialog-name=create-room-dialog] > form > button, dialog[data-dialog-name=change-password-dialog] > form > button {
   width: -moz-fit-content;
   width: fit-content;
   align-self: center;

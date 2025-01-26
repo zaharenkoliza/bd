@@ -27,17 +27,22 @@ if (!$result) {
 		<section class='aside'>
 			<div>
 				<div class="info">
-					<h4 id='game_status'></h4>
-					<div>
-						<button data-show-dialog="rules-dialog">правила</button>
-						<button id="quit-button" data-id-room="<?php echo $idRoom; ?>">выйти из игры</button>
-						<button onclick="window.location.href = './profile.php';">в профиль</button>
+					<div class='head'>
+						<h4 id='game_status'></h4>
+						<div>
+							<button data-show-dialog="rules-dialog">правила</button>
+							<button id="quit-button" data-id-room="<?php echo $idRoom; ?>">выйти из игры</button>
+							<button onclick="window.location.href = './profile.php';">в профиль</button>
+						</div>
 					</div>
 					<span id='role'></span>
-					<div class='timer waiting'>
+					<div class='timer hidden'>
 						<span>Время до конца хода:</span>
 						<div id='timer'></div>
-						<div></div>
+					</div>
+					<div class='moves hidden'>
+						<span>До победы саботёров в игре осталось ходов:</span>
+						<div id='moves'></div>
 					</div>
 				</div>
 

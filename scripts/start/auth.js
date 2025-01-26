@@ -26,7 +26,7 @@ export function initAuthForm() {
 		.then(data => {
 			console.log(data.message);
 			if (data.message === 'success') {
-				window.location.href = './rooms.php';
+				window.location.href = './profile.php';
 			}
 			else {
 				fetchDialog(data.status, data.message);

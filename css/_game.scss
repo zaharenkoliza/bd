@@ -55,13 +55,32 @@ main.game {
 				flex-wrap: wrap;
 				justify-content: space-between;
 	
+				> div.head {
+					justify-content: space-between;
+					width: 100%;
+
+					> div {
+						display: flex;
+						gap: 10px;
+
+						> button {
+							flex-shrink: 1;
+							height: fit-content;
+							white-space: nowrap;
+						}
+					}
+				}
+
 				> div {
 					display: flex;
-					gap: 10px;
-	
-					> button {
-						flex-shrink: 1;
-						height: fit-content;
+				}
+
+				> div.moves {
+					gap: 5px;
+
+					> span, 
+					div {
+						font-weight: 600;
 					}
 				}
 	

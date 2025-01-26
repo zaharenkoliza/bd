@@ -46,7 +46,7 @@ html {
 }
 
 .hidden {
-	display: none;
+	display: none !important;
 }
 
 #orientation-warning {
@@ -73,7 +73,7 @@ html {
 
 @media (max-width: 1024px) {
 	main {
-		display: none;
+		display: none !important;
 	}
 
 	#orientation-warning {

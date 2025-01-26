@@ -90,11 +90,19 @@ const updateTimer = (data) => {
 	timer.innerHTML = parseTimeToSeconds(data.current_move.end_time);
 }
 
+const updateMoves = (data) => {
+	if (!data.moves_off) return;
+	//console.log(data);
+
+	moves.querySelector('div').textContent = data.moves_off;
+}
+
 export function gameStateNoFetch( data ) {
 	cardOnField(data);
 	cardInHand(data);
 	players(data);
 	updateTimer(data);
+	updateMoves(data);
 	//console.log(data);
 	if (data.game_status != gameStatus.game_status && data.game_status =='process') {
 		startGame(data);
@@ -119,7 +127,8 @@ export function gameState() {
 		cardInHand(data.info);
 		players(data.info);
 		updateTimer(data.info);
-		//console.log(data);
+		updateMoves(data.info);
+		console.log(data);
 		//console.log(gameStatus.game_status);
 		if (data.info.game_status != gameStatus.game_status && data.info.game_status =='process') {
 			//console.log(gameStatus.game_status);
@@ -144,6 +153,8 @@ function parseTimeToSeconds(timeString) {
 
 	return Math.round(totalSeconds);
 }
+
+const moves = document.querySelector('.moves');
 
 gameState();
 export let longPolling = setInterval(gameState, 5000);

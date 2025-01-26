@@ -71,7 +71,8 @@ dialog {
 
 	&[data-dialog-name='auth-dialog'], 
 	&[data-dialog-name='register-dialog'], 
-	&[data-dialog-name='create-room-dialog'] {
+	&[data-dialog-name='create-room-dialog'],
+	&[data-dialog-name='change-password-dialog'] {
 		padding: 40px;
 		padding-top: 60px;
 
