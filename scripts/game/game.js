@@ -78,9 +78,15 @@ const cardInHand = async (data) => {
 }
 
 function handleCardClick(event) {
+	const clickedCard = event.currentTarget;
+
+	if (clickedCard.classList.contains('active')) {
+		clickedCard.classList.remove('active');
+		return;
+	}
 	const hand = document.querySelector('ul.cards-hand');
 	hand.querySelectorAll('li').forEach((c) => c.classList.remove('active'));
-	event.currentTarget.classList.toggle('active');
+	clickedCard.classList.add('active');
 }
 
 const updateTimer = (data) => {

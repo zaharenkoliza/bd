@@ -36,7 +36,7 @@ gameField.querySelectorAll('div.card').forEach(place => {
 			placeCard(cardId, x, y, rot);
 		}
 
-		card.setAttribute('draggable', 'false');
+		// card.setAttribute('draggable', 'false');
 	});
 });
 
@@ -59,7 +59,7 @@ drop.addEventListener('drop', (e) => {
 
 	dropCard(cardId);
 
-	card.setAttribute('draggable', 'false');
+	// card.setAttribute('draggable', 'false');
 });
 
 export const addListenerForPlayer = (li) => {
@@ -86,7 +86,7 @@ export const addListenerForPlayer = (li) => {
 
 		playCard(cardId, playerId);
 
-		card.setAttribute('draggable', 'false');
+		// card.setAttribute('draggable', 'false');
 	});
 }
 
