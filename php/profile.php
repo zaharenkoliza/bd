@@ -60,8 +60,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				echo '</ul>';?>
 
 			<div>
-				<!-- <button data-show-dialog="create-room-dialog">создать игру</button> -->
-				<button onclick="window.location.href = './rooms.php';">к доступным комнатам</button>
+				<button data-show-dialog="create-room-dialog">создать игру</button>
+				<button onclick="window.location.href = './rooms.php';">существующие игры</button>
 			</div>
 		</div>
 
