@@ -48,8 +48,8 @@ $idArray = array_column($result, 'id');
 				?>
 			</h2>
 			<div>
-				<button data-show-dialog="rules-dialog">правила</button>
-				<button onclick="window.location.href = './profile.php';">в профиль</button>
+				<button class='profile' onclick="window.location.href = './profile.php';"></button>
+				<button data-show-dialog="rules-dialog"></button>
 			</div>
 		</div>
 

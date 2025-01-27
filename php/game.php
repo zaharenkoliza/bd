@@ -30,9 +30,9 @@ if (!$result) {
 					<div class='head'>
 						<h4 id='game_status'></h4>
 						<div>
-							<button data-show-dialog="rules-dialog">правила</button>
-							<button id="quit-button" data-id-room="<?php echo $idRoom; ?>">выйти из игры</button>
-							<button onclick="window.location.href = './profile.php';">в профиль</button>
+							<button title='правила' data-show-dialog="rules-dialog"></button>
+							<button title='в профиль игрока' class='profile' onclick="window.location.href = './profile.php';"></button>
+							<button title='выйти из игры' class='quit' id="quit-button" data-id-room="<?php echo $idRoom; ?>"></button>
 						</div>
 					</div>
 					<span id='role'></span>

@@ -33,6 +33,7 @@ export function initRegisterForm() {
 			fetchDialog(data.status, data.message);
 			console.log(data.message);
 			if (data.message === 'success') {
+				form.querySelector('button').textContent = 'Регистрация...';
 				window.location.href = './profile.php';
 			}
 			// else {

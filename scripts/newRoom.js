@@ -27,6 +27,7 @@ export function initNewRoom() {
 		.then(data => {
 			console.log(data.message);
 			if (data.message === 'success') {
+				form.querySelector('button').textContent = 'Создание...';
 				const idRoom = data['info']['id_room'];
 				console.log(idRoom);
 				fetchDialog('Комната успешно создана', 'ID созданной вами комнаты: ' + idRoom);

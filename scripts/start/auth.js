@@ -12,6 +12,7 @@ export function initAuthForm() {
 		const login = form.querySelector('input[name=login-auth]').value;
 		const password = form.querySelector('input[name=password-auth]').value;
 
+		console.log(login + password);
 		fetch('../api/auth.php', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -24,8 +25,8 @@ export function initAuthForm() {
 			return response.json();
 		})
 		.then(data => {
-			console.log(data.message);
-			if (data.message === 'success') {
+			if (data.status === 'success') {
+				form.querySelector('button').textContent = 'Вход...';
 				window.location.href = './profile.php';
 			}
 			else {

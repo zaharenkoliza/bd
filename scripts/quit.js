@@ -3,6 +3,11 @@ const button = document.getElementById('quit-button');
 button.addEventListener('click', (e) => {
 	e.preventDefault();
 
+	const confirmLogout = confirm('Вы уверены, что хотите выйти из игры? Если она началась, то вернуться в неё будет невозможно.');
+	if (!confirmLogout) {
+		return;
+	}
+
 	const urlParams = new URLSearchParams(window.location.search);
 	const id = urlParams.get('room');
 

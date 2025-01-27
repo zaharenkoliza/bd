@@ -27,13 +27,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			</h2>
 
 			<div>
-			<button data-show-dialog="change-password-dialog">сменить пароль</button>
-			<button class='remove-tokens'>выйти из всех устройств</button>
-		</div>
-
-			<div>
-				<button data-show-dialog="rules-dialog">правила</button>
-				<button class='log-out'>выйти из аккаунта</button>
+				<span data-show-dialog="change-password-dialog">сменить пароль</span>
+				<span class='remove-tokens'>выйти из всех устройств</span>
+				<span class='log-out'>выйти из аккаунта</span>
+				<button data-show-dialog="rules-dialog"></button>
 			</div>
 
 		</div>
@@ -63,8 +60,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				echo '</ul>';?>
 
 			<div>
-				<button data-show-dialog="create-room-dialog">создать игру</button>
-				<button onclick="window.location.href = './rooms.php';">войти в существующую комнату</button>
+				<!-- <button data-show-dialog="create-room-dialog">создать игру</button> -->
+				<button onclick="window.location.href = './rooms.php';">к доступным комнатам</button>
 			</div>
 		</div>
 

@@ -6,6 +6,12 @@ export const initDeleteTokens = () => {
 	if (!button) return;
 
 	button.addEventListener('click', () => {
+
+		const confirmLogout = confirm('Вы уверены, что хотите выйти из всех аккаунтов?');
+		if (!confirmLogout) {
+			return;
+		}
+
 		fetch('../api/remove_tokens.php', {
 			method: 'POST',
 			headers: {
@@ -16,7 +22,8 @@ export const initDeleteTokens = () => {
 		.then(response => response.json())
 		.then(data => {	
 			console.log(data);
-			if (data.status === 'success' || data.message === 'You are already in this room') {
+			if (data.status === 'success') {
+				form.querySelector('button').textContent = 'Выход...';
 				window.location.href = './start.php';
 			}
 			else {

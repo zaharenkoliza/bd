@@ -5,12 +5,12 @@
 	<?php @include './media.tpl'; ?>	
 	
 	<main class="start">
+		<button data-show-dialog="rules-dialog"></button>
 		<h1>Саботёр</h1>
 		<p>онлайн настольная игра</p>
 		<div>
 			<button data-show-dialog="auth-dialog">войти</button>
 			<button data-show-dialog="register-dialog">регистрация</button>
-			<button data-show-dialog="rules-dialog">правила</button>
 		</div>
 
 		<dialog data-dialog-name="auth-dialog">
