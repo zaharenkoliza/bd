@@ -21,7 +21,7 @@ if ($response && isset($response['status']) && $response['status'] === 'success'
 	$_SESSION['rooms'] = $response['available_rooms'];
 
 	echo json_encode([
-		'message' => 'success',
+		'status' => 'success',
 		'info' => $response
 	]);
 } else {

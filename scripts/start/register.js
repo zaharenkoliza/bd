@@ -32,7 +32,7 @@ export function initRegisterForm() {
 		.then(data => {
 			fetchDialog(data.status, data.message);
 			console.log(data.message);
-			if (data.message === 'success') {
+			if (data.status === 'success') {
 				form.querySelector('button').textContent = 'Регистрация...';
 				window.location.href = './profile.php';
 			}

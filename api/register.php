@@ -24,7 +24,7 @@ if ($response && isset($response['status']) && $response['status'] === 'success'
 	$_SESSION['users'] = $response['users'];
 
 	echo json_encode([
-		'message' => 'success',
+		'status' => 'success',
 		'info' => $response
 	]);
 } else {

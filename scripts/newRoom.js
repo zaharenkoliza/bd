@@ -26,7 +26,7 @@ export function initNewRoom() {
 		})
 		.then(data => {
 			console.log(data.message);
-			if (data.message === 'success') {
+			if (data.status === 'success') {
 				form.querySelector('button').textContent = 'Создание...';
 				const idRoom = data['info']['id_room'];
 				console.log(idRoom);
