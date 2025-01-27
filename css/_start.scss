@@ -1,6 +1,7 @@
 main.start {
 	align-items: center;
 	justify-content: center;
+	position: relative;
 	
 	> h1 {
 		margin-bottom: 4px;
@@ -15,5 +16,11 @@ main.start {
 	> div {
 		display: flex;
 		gap: 25px;
+	}
+
+	button[data-show-dialog="rules-dialog"] {
+		position: absolute;
+		top: 30px;
+		right: 30px;
 	}
 }

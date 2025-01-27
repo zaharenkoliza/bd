@@ -155,21 +155,52 @@ h4 {
   font-family: "FiveYearsLater";
 }
 
+button[data-show-dialog=rules-dialog] {
+  background-image: url("../img/button_rules.png");
+  background-size: contain;
+  width: 50px;
+  height: 50px;
+}
+
 button {
-  background-color: #597E8E;
-  border-radius: 5px;
-  box-shadow: -5px 3px 7px rgba(0, 0, 0, 0.5);
+  font-family: "Advent Pro";
+  background-image: url("../img/button_background_v2.png");
+  background-size: 100% 100%;
+  background-image: no-repeat;
   border: none;
-  padding: 8px 16px;
+  border-radius: 4px;
+  box-shadow: inset -4px -4px 8px rgba(214, 214, 214, 0.0549019608), inset 4px 4px 8px #707070, 4px 4px 12px rgba(0, 0, 0, 0.4); /* Эффект объёма */
+  padding: 12px 24px;
   font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
   cursor: pointer;
-  color: rgb(40, 35, 35);
-  transition: background-color ease 0.3s;
-  font-family: "Circe";
+  transition: 0.2s;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.7), 1px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 button:hover {
-  background-color: #537483;
+  box-shadow: inset -2px -2px 4px #d6d6d6, inset 2px 2px 4px #707070, 2px 2px 6px rgba(0, 0, 0, 0.3);
+  transform: scale(0.98);
+}
+
+button:active {
+  box-shadow: inset 4px 4px 8px #707070, inset -4px -4px 8px #d6d6d6; /* Сильный "вдавленный" эффект */
+  transform: scale(0.95);
+}
+
+button.profile {
+  background-image: url("../img/button_profile.png");
+  background-size: contain;
+  width: 50px;
+  height: 50px;
+}
+
+button.quit {
+  background-image: url("../img/quit.png");
+  background-size: contain;
+  width: 50px;
+  height: 50px;
 }
 
 body:has(main.game) {
@@ -226,8 +257,6 @@ main.game section.aside > div > div.info > div.head > div {
 }
 main.game section.aside > div > div.info > div.head > div > button {
   flex-shrink: 1;
-  height: -moz-fit-content;
-  height: fit-content;
   white-space: nowrap;
 }
 main.game section.aside > div > div.info > div {
@@ -452,15 +481,7 @@ main.game section.field > div > div.row > div {
   border-radius: 10px;
   width: auto;
   background-color: gray;
-  background-size: contain;
-}
-main.game section.field > div > div.row > div > img {
-  max-width: 100%;
-  max-height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
-  width: 100%;
-  height: 100%;
+  background-size: cover;
 }
 main.game section.field > div > div.row > div.drag-on {
   background-color: rgb(107, 236, 236);
@@ -697,6 +718,7 @@ main.rooms > div.games > button {
 main.start {
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 main.start > h1 {
   margin-bottom: 4px;
@@ -709,6 +731,11 @@ main.start > p {
 main.start > div {
   display: flex;
   gap: 25px;
+}
+main.start button[data-show-dialog=rules-dialog] {
+  position: absolute;
+  top: 30px;
+  right: 30px;
 }
 
 main.profile {
@@ -723,9 +750,23 @@ main.profile > div.header {
 }
 main.profile > div.header > div {
   display: flex;
-  gap: 15px;
+  gap: 25px;
   height: -moz-fit-content;
   height: fit-content;
+  align-items: center;
+}
+main.profile > div.header > div > span {
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transition: 0.2s;
+}
+main.profile > div.header > div > span:hover {
+  transform: scale(0.95);
+  color: #597E8E;
 }
 main.profile .form-group {
   position: relative;

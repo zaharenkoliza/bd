@@ -10,8 +10,25 @@ main.profile {
 
 		> div {
 			display: flex;
-			gap: 15px;
+			gap: 25px;
 			height: fit-content;
+			align-items: center;
+
+			> span {
+				font-size: 16px;
+				text-transform: uppercase;
+				// border-bottom: 2px solid black;
+				cursor: pointer;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				transition: 0.2s;
+
+				&:hover {
+					transform: scale(.95);
+					color: $button;
+				}
+			}
 		}
 	}
 
