@@ -20,7 +20,7 @@ $response = json_decode($result, true);
 
 if ($response && isset($response['status']) && $response['status'] === 'success') {	
 	echo json_encode([
-		'message' => 'success',
+		'status' => 'success',
 		'info' => $response['message']
 	]);
 } else {
